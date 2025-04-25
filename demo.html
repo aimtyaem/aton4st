@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuantumMind AI - Demo</title>
+    <title>Aton4ST Demo</title>
     <link rel="stylesheet" href="css/demo.css">
-<!-- Three.js Dependencies -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/controls/OrbitControls.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/webxr/VRButton.js"></script>
-  <link rel="stylesheet" href="css/demo.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/controls/OrbitControls.js"></script>
 </head>
 <body>
-<!-- Header -->
-        <header>
-        <img src="img/Logo.png" alt=" RALogo" class="ra-logo">
+    <!-- Header -->
+    <header>
+        <img src="img/aton4stlogo.jpg" alt="Aton4ST Logo" class="logo">
         <nav>
             <a href="index.html">Home</a>  
             <a href="features.html">Features</a>
@@ -23,159 +23,214 @@
             <a href="contact.html">Contact</a>
         </nav>
     </header>
-</br>
-</br>
+
     <div class="demo-container">
+        <!-- Video Section -->
         <section id="demo-video">
-            <h2>QuantumMind AI in Action</h2>
-              <div class="video-embed">
-    <iframe src="https://www.youtube.com/embed/w7aL26VlFu4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
-                <h3>Core Simulation Logic</h3>
-                <pre><code>// AI Stress Management Algorithm
-
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
-public class VRScenarioController : MonoBehaviour
-{
-    private QuantumMindAI ai;
-    private bool scenarioActive = true;
-
-    void Start()
-    {
-        ai = new QuantumMindAI();
-        StartCoroutine(RunScenario());
-    }
-
-    IEnumerator RunScenario()
-    {
-        while (scenarioActive)
-        {
-            float currentStress = ai.UpdateStress(0.1f);
-            DisplayStressLevel(currentStress);
-            TriggerFeedback(currentStress);
-            yield return new WaitForSeconds(1.0f); // Adjust the time interval as needed
-        }
-    }
-
-    void DisplayStressLevel(float stressLevel)
-    {
-        Debug.Log("Current Stress Level: " + stressLevel);
-        // Implement VR display of stress level here
-    }
-
-    void TriggerFeedback(float stressLevel)
-    {
-        if (stressLevel > 70)
-        {
-            // Implement feedback for high stress levels in VR scenario
-            Debug.Log("High Stress Level Detected - Triggering Feedback");
-        }
-    }
-}
-
-public class QuantumMindAI
-{
-    private float stressLevel = 30;
-    private readonly Dictionary<string, float> stressFactors = new Dictionary<string, float>
-    {
-        { "environment", 0.7f },
-        { "isolation", 0.4f },
-        { "task_load", 0.5f }
-    };
-
-    public float UpdateStress(float delta)
-    {
-        stressLevel += GetTotalStressFactors() * delta;
-        stressLevel = Mathf.Clamp(stressLevel, 0, 100);
-        return stressLevel;
-    }
-
-    public float ApplyIntervention(float effectiveness)
-    {
-        stressLevel -= 20 * effectiveness;
-        stressLevel = Mathf.Clamp(stressLevel, 0, 100);
-        return stressLevel;
-    }
-
-    private float GetTotalStressFactors()
-    {
-        float total = 0;
-        foreach (var factor in stressFactors)
-        {
-            total += factor.Value;
-        }
-        return total;
-    }
-}
-</code></pre>
+            <h2>Aton4ST Platform Overview</h2>
+            <div class="video-embed">
+                <iframe src="https://www.youtube.com/embed/climate-demo" title="Aton4ST Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
+            
+            <!-- Core Algorithm -->
+            <h3>Climate Analysis Engine</h3>
+            <pre><code>// AI Climate Pattern Detection Algorithm
+class ClimateAnalyzer {
+    constructor() {
+        this.models = {
+            temperature: new NeuralNetwork(),
+            co2: new RegressionModel(),
+            seaLevel: new TimeSeriesAnalyzer()
+        };
+    }
+
+    async analyzeDataset(dataset) {
+        const results = {};
+        
+        // Temperature Analysis
+        results.temperatureTrend = this.models.temperature.predict(
+            dataset.map(d => d.temp)
+        );
+        
+        // CO2 Correlation
+        results.co2Impact = this.models.co2.calculateCorrelation(
+            dataset.map(d => d.co2),
+            dataset.map(d => d.temp)
+        );
+        
+        // Sea Level Projections
+        results.seaLevel = this.models.seaLevel.calculateSlope(
+            dataset.map(d => d.seaLevel)
+        );
+        
+        return results;
+    }
+    
+    generateVisualization(data) {
+        const scene = new ThreeDScene();
+        scene.createHeatmap(data.temperature);
+        scene.addAnomalyMarkers(data.anomalies);
+        return scene.render();
+    }
+}</code></pre>
         </section>
 
+        <!-- Interactive Demo -->
         <div class="interactive-demo">
-            <div class="vr-preview">
-                <h3>VR Training Preview</h3>
-                <div id="vr-scene">
-                    <img src="img/ar.gif" alt="VR Scene" style="width:100%">
+            <!-- 3D Globe -->
+            <div class="globe-preview">
+                <h3>Climate Data Visualization</h3>
+                <div id="globe-scene">
+                    <canvas id="climateGlobe"></canvas>
                 </div>
                 <div class="simulation-controls">
+                    <button onclick="startGlobeRotation()">Start Rotation</button>
+                    <button onclick="focusOnRegion('amazon')">Amazon Deforestation</button>
+                    <button onclick="focusOnRegion('arctic')">Arctic Ice</button>
                 </div>
             </div>
 
-            <div class="stress-simulator">
-                <h3>Stress Simulation</h3>
-                <div class="stress-meter">
-                    <div class="progress-bar" style="height: 30px; background: #334;">
-                        <div id="stress-progress" style="width: 30%; height: 100%; 
-                             background: linear-gradient(90deg, #6c5ce7, #48dbfb);"></div>
+            <!-- Data Dashboard -->
+            <div class="climate-dashboard">
+                <h3>Real-time Climate Metrics</h3>
+                
+                <!-- Progress Trackers -->
+                <div class="climate-metrics">
+                    <div class="metric-card">
+                        <div class="progress-circle" data-value="75">
+                            <span>1.1°C</span>
+                        </div>
+                        <p>Global Warming</p>
                     </div>
-                    <div id="stress-value" style="margin-top: 10px;">30%</div>
+                    
+                    <div class="metric-card">
+                        <div class="progress-circle" data-value="68">
+                            <span>420ppm</span>
+                        </div>
+                        <p>Atmospheric CO₂</p>
+                    </div>
                 </div>
-                <div class="bio-feedback" style="margin-top: 20px;">
-                    <p>Heart Rate: <span id="heart-rate">82</span> BPM</p>
-                    <p>Oxygen Sats: <span id="oxygen">95</span>%</p>
-                </div>
-                <div class="interventions" style="margin-top: 20px;">
-<button onclick="startScenario()">Start</button>
-<button onclick="resetScenario()">Reset</button>
-                    <button onclick="applyBreathing()">Apply Breathing Exercise</button>
-                    <button onclick="findSolution()">Find Solution</button>
-<!-- Canvas element for VR rendering -->
-  <canvas id="vrCanvas"></canvas>
-<!-- Include the VRtraining.js script -->
-  <script src="js/VRtraining.js"></script>
-  
-  <!-- Connection Code -->
-  <script>
-    // Function to start the VR training scenario
-    function startVRTraining() {
-      if (typeof VRtraining !== "undefined" && typeof VRtraining.connect === "function") {
-        VRtraining.connect({
-          canvas: document.getElementById("vrCanvas"),
-          serverUrl: "http://localhost:8001"
-        });
-      } else {
-        console.error("js/VRtraining.js is not loaded or does not have a connect method.");
-      }
-    }
 
-    // Add event listener to trigger the connection when the "Find Solution" button is clicked
-    window.addEventListener("DOMContentLoaded", function() {
-      document.getElementById("findSolution").addEventListener("click", startVRTraining);
-    });
-  </script>
+                <!-- Live Charts -->
+                <div class="chart-container">
+                    <canvas id="climateChart"></canvas>
+                </div>
+
+                <!-- Chatbot Interface -->
+                <div class="climate-chatbot">
+                    <h4>Climate Data Assistant</h4>
+                    <div class="chat-history" id="climateChat">
+                        <div class="message bot">Ask me about climate trends or Earth observation data!</div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="climateQuery" placeholder="Type your climate question...">
+                        <button onclick="sendClimateQuery()">Ask</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="js/demo.js"></script>
-    </br>
-<footer>  
-  <p>© 2025 AIMTY. "Your Mental Spacesuit."</p>  
-  <a href="#license">License</a> | <a href="#privacy">Privacy</a>  
-</footer>  
+    <script>
+        // Three.js Globe Initialization
+        const globeScene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('climateGlobe') });
+        renderer.setSize(800, 600);
+
+        // Globe Creation
+        const geometry = new THREE.SphereGeometry(5, 32, 32);
+        const textureLoader = new THREE.TextureLoader();
+        const material = new THREE.MeshPhongMaterial({
+            map: textureLoader.load('img/earth-texture.jpg'),
+            bumpMap: textureLoader.load('img/earth-bump.jpg'),
+            bumpScale: 0.3
+        });
+        const earth = new THREE.Mesh(geometry, material);
+        globeScene.add(earth);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        globeScene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0xffffff, 1);
+        pointLight.position.set(10, 10, 10);
+        globeScene.add(pointLight);
+
+        // Animation Loop
+        function animateGlobe() {
+            requestAnimationFrame(animateGlobe);
+            earth.rotation.y += 0.005;
+            renderer.render(globeScene, camera);
+        }
+        animateGlobe();
+
+        // Chart.js Configuration
+        const ctx = document.getElementById('climateChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2000', '2005', '2010', '2015', '2020'],
+                datasets: [{
+                    label: 'Global Temperature Anomaly (°C)',
+                    data: [0.42, 0.62, 0.72, 0.87, 1.02],
+                    borderColor: '#ff6b6b',
+                    fill: false
+                }, {
+                    label: 'Atmospheric CO₂ (ppm)',
+                    data: [369, 379, 389, 399, 412],
+                    borderColor: '#4ecdc4',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    y: { ticks: { color: '#fff' } },
+                    x: { ticks: { color: '#fff' } }
+                }
+            }
+        });
+
+        // Chatbot Logic
+        async function sendClimateQuery() {
+            const input = document.getElementById('climateQuery');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chat = document.getElementById('climateChat');
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.textContent = message;
+            chat.appendChild(userMsg);
+
+            // Get bot response
+            const response = await fetch('/api/climate-ai', {
+                method: 'POST',
+                body: JSON.stringify({ query: message })
+            });
+            const data = await response.json();
+
+            // Add bot message
+            const botMsg = document.createElement('div');
+            botMsg.className = 'message bot';
+            botMsg.textContent = data.answer;
+            chat.appendChild(botMsg);
+
+            input.value = '';
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+
+    <footer>
+        <p>© 2025 Aton4ST. Democratizing Space Science.</p>
+        <a href="#license">License</a> | <a href="#privacy">Privacy</a>
+    </footer>
 </body>
 </html>
