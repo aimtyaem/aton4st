@@ -1,138 +1,161 @@
-document.addEventListener('DOMContentLoaded', function () {
-  // Stress Simulation Script (unchanged)
-  let stressLevel = 30;
-  let simulationInterval;
-  const maxStress = 100;
-  const minStress = 0;
-  
-  function updateStressDisplay() {
-    const progressElem = document.getElementById('stress-progress');
-    const valueElem = document.getElementById('stress-value');
-    const heartRateElem = document.getElementById('heart-rate');
-    const oxygenElem = document.getElementById('oxygen');
-    
-    if (progressElem) progressElem.style.width = stressLevel + '%';
-    if (valueElem) valueElem.textContent = Math.round(stressLevel) + '%';
-    if (heartRateElem) heartRateElem.textContent = Math.floor(80 + (stressLevel * 0.4));
-    if (oxygenElem) oxygenElem.textContent = Math.max(85, 100 - Math.floor(stressLevel * 0.15));
-  }
-  
-  window.startScenario = function () {
-    if (!simulationInterval) {
-      simulationInterval = setInterval(() => {
-        if (stressLevel < maxStress) {
-          stressLevel += Math.random() * 1.5;
-          updateStressDisplay();
+// demo.js (Server - No changes needed from the previous version)
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const open = require('open');
+const url = require('url');
+
+// --- Analysis Logic (Lives on the server) ---
+class NeuralNetwork { /* ... (same as before) ... */ 
+    predict(data) {
+        console.log("NeuralNetwork: Predicting temperature trend (server-side)...");
+        const validData = data?.filter(d => d !== null && d !== undefined);
+        if (validData && validData.length > 0) {
+            return "Simulated rising temperature trend (from server)";
+        } else {
+            return "No valid temperature data points (from server)";
         }
-      }, 2000);
     }
-  };
-  
-  window.resetScenario = function () {
-    clearInterval(simulationInterval);
-    simulationInterval = null;
-    stressLevel = 30;
-    updateStressDisplay();
-  };
-  
-  window.applyBreathing = function () {
-    if (stressLevel > 20) {
-      stressLevel = Math.max(minStress, stressLevel - 20);
-      updateStressDisplay();
+}
+class RegressionModel { /* ... (same as before) ... */ 
+    calculateCorrelation(co2Data, tempData) {
+        console.log("RegressionModel: Calculating CO2-temperature correlation (server-side)...");
+        if (co2Data && tempData && co2Data.length > 0 && co2Data.length === tempData.length) {
+            return "Simulated strong positive correlation (from server)";
+        } else {
+            return "Insufficient/mismatched data for correlation (from server)";
+        }
     }
-  };
-  
-  window.findSolution = function () {
-    if (stressLevel > 10) {
-      stressLevel = Math.max(minStress, stressLevel - 10);
-      updateStressDisplay();
+}
+class TimeSeriesAnalyzer { /* ... (same as before) ... */ 
+    calculateSlope(data) {
+        console.log("TimeSeriesAnalyzer: Calculating sea level slope (server-side)...");
+         const validData = data?.filter(d => d !== null && d !== undefined);
+        if (validData && validData.length > 0) {
+            return "Simulated rising sea level trend (from server)";
+        } else {
+            return "No valid sea level data points (from server)";
+        }
     }
-  };
-  
-  updateStressDisplay();
-
-  // --- Optimized 3D Scene Implementation ---
-  const scene = new THREE.Scene();
-  
-  // Precision Camera Setup
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.01,
-    1000
-  );
-  camera.position.set(0, 0, 0.001);
-
-  // Transparent Renderer Configuration
-  const renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    alpha: true
-  });
-  renderer.setClearColor(0x000000, 0);
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
-  document.body.appendChild(renderer.domElement);
-
-  // Optimized Sphere Geometry
-  const geometry = new THREE.SphereGeometry(500, 32, 16);
-  geometry.scale(-1, 1, 1);
-
-  // Robust Texture Loading System
-  const textureLoader = new THREE.TextureLoader();
-  textureLoader.load(
-    'img/er.png',
-    (texture) => {
-      console.log('360° Environment Loaded');
-      const material = new THREE.MeshBasicMaterial({
-        map: texture,
-        side: THREE.BackSide,
-        transparent: true
-      });
-      scene.add(new THREE.Mesh(geometry, material));
-      needsUpdate = true;
-    },
-    undefined,
-    (err) => {
-      console.error('Texture Error:', err);
-      const material = new THREE.MeshBasicMaterial({
-        color: 0x404040,
-        side: THREE.BackSide
-      });
-      scene.add(new THREE.Mesh(geometry, material));
-      needsUpdate = true;
+}
+class ClimateAnalyzer { /* ... (same as before) ... */ 
+     constructor() {
+        this.models = {
+            temperature: new NeuralNetwork(),
+            co2: new RegressionModel(),
+            seaLevel: new TimeSeriesAnalyzer()
+        };
+        console.log("ClimateAnalyzer initialized on server.");
     }
-  );
-
-  // Interactive Controls
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.enableZoom = false;
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.05;
-  controls.rotateSpeed = -0.25;
-
-  // Adaptive Rendering System
-  let needsUpdate = true;
-  renderer.setAnimationLoop(() => {
-    if (needsUpdate || controls.isRotating) {
-      controls.update();
-      renderer.render(scene, camera);
-      needsUpdate = false;
+    analyzeDataset(dataset) {
+        console.log("ClimateAnalyzer: Analyzing dataset (server-side)...");
+        const results = {};
+        if (!dataset || dataset.length === 0) {
+            console.log("ClimateAnalyzer: Dataset is empty on server.");
+             results.temperatureTrend = "No data provided";
+             results.co2Impact = "No data provided";
+             results.seaLevel = "No data provided";
+            return results;
+        }
+        const tempData = dataset.map(d => d?.temp ?? null);
+        const co2Data = dataset.map(d => d?.co2 ?? null);
+        const seaLevelData = dataset.map(d => d?.seaLevel ?? null);
+        results.temperatureTrend = this.models.temperature.predict(tempData);
+        results.co2Impact = this.models.co2.calculateCorrelation(co2Data, tempData);
+        results.seaLevel = this.models.seaLevel.calculateSlope(seaLevelData);
+        console.log("ClimateAnalyzer: Server-side analysis complete.");
+        return results;
     }
-  });
+}
+const analyzer = new ClimateAnalyzer();
 
-  // Responsive Layout Handling
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    needsUpdate = true;
-  });
+// --- Server Request Handling ---
+const requestHandler = (req, res) => {
+    const parsedUrl = url.parse(req.url);
+    const pathname = parsedUrl.pathname;
+    const method = req.method;
+    console.log(`Request received: ${method} ${pathname}`);
 
-  // Resource Cleanup
-  window.addEventListener('beforeunload', () => {
-    clearInterval(simulationInterval);
-    renderer.dispose();
-    controls.dispose();
-    textureLoader = null;
-  });
+    // API Endpoint: /api/analyze
+    if (pathname === '/api/analyze' && method === 'POST') {
+        // ... (API handling code - same as before) ...
+        let body = '';
+        req.on('data', chunk => { body += chunk.toString(); });
+        req.on('end', () => {
+            try {
+                const dataset = JSON.parse(body);
+                console.log("Received dataset on server:", dataset);
+                const analysisResults = analyzer.analyzeDataset(dataset);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify(analysisResults));
+                console.log("Sent analysis results to client.");
+            } catch (error) {
+                console.error("Error processing API request:", error);
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: 'Invalid JSON data received' }));
+            }
+        });
+    }
+    // Static File Serving
+    else {
+        let filePath = '.' + pathname;
+        if (filePath === './' || filePath === './index') { // Allow access via / or /index
+             filePath = './index.html';
+        }
+        // Security: Prevent accessing files outside the current directory
+        const resolvedPath = path.resolve(filePath);
+        if (!resolvedPath.startsWith(path.resolve('.'))) {
+             console.error(`Attempted access outside root directory: ${filePath}`);
+             res.writeHead(403); // Forbidden
+             res.end('Access denied');
+             return;
+         }
+
+        const extname = path.extname(filePath);
+        let contentType = 'text/html';
+        // Add more MIME types as needed
+        switch (extname) {
+            case '.js': contentType = 'text/javascript'; break;
+            case '.css': contentType = 'text/css'; break;
+            case '.png': contentType = 'image/png'; break;
+            case '.jpg': contentType = 'image/jpeg'; break;
+            case '.json': contentType = 'application/json'; break;
+        }
+
+        fs.readFile(filePath, (err, content) => {
+            // ... (Static file serving logic - same as before) ...
+            if (err) {
+                if (err.code === 'ENOENT') {
+                    console.error(`File not found: ${filePath}`);
+                    res.writeHead(404);
+                    res.end('File not found');
+                } else {
+                    console.error(`Server error reading file: ${filePath}`, err);
+                    res.writeHead(500);
+                    res.end('Server error');
+                }
+            } else {
+                res.writeHead(200, { 'Content-Type': contentType });
+                res.end(content, 'utf-8');
+                // console.log(`Served static file: ${filePath}`); // Reduce console noise
+            }
+        });
+    }
+};
+
+// --- Create and Start Server ---
+const server = http.createServer(requestHandler);
+const PORT = 8001;
+server.listen(PORT, (err) => {
+    // ... (Server start logic - same as before) ...
+    if (err) {
+        return console.error('Error starting server:', err);
+    }
+    const serverUrl = `http://localhost:${PORT}`;
+    console.log(`Server running at ${serverUrl}`);
+    console.log(`Serving analysis API at POST ${serverUrl}/api/analyze`);
+    open(`${serverUrl}/index.html`).catch(err => {
+        console.error('Error opening browser:', err);
+    });
 });
+
