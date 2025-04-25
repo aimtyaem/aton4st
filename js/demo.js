@@ -29,7 +29,7 @@ const requestHandler = (req, res) => {
     console.log(`Request received: ${method} ${pathname}`);
 
     // API Endpoint: /api/analyze
-    if (pathname === '/api/analyze' && method === 'POST') {
+    if (pathname === 'https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${startDate}&end_date=${endDate}&daily=temperature_2m_mean,precipitation_sum&timezone=auto' && method === 'POST') {
         let body = '';
         req.on('data', chunk => { body += chunk.toString(); });
         req.on('end', () => {
@@ -48,7 +48,7 @@ const requestHandler = (req, res) => {
         });
     }
     // API Endpoint: /api/climate-ai (NEW for chatbot)
-    else if (pathname === '/api/climate-ai' && method === 'POST') {
+    else if (pathname === 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=${API_KEY}' && method === 'POST') {
         let body = '';
         req.on('data', chunk => { body += chunk.toString(); });
         req.on('end', () => {
