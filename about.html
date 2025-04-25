@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About QuantumMind AI Project - RA Space Exploration Training</title>
+    <title>About Aton4ST - Democratizing Space Science</title>
     <style>
         :root {
-            --space-dark: #0a0f24;
-            --quantum-purple: #6c5ce7;
-            --neon-blue: #48dbfb;
-            --code-bg: #1a1f35;
+            --space-dark: #0f172a;
+            --climate-blue: #38bdf8;
+            --earth-green: #4ade80;
+            --code-bg: #1e293b;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: var(--space-dark);
             color: white;
             margin: 0;
@@ -21,8 +21,8 @@
         }
 
         header {
-            background: rgba(26, 31, 53, 0.95);
-            padding: 0rem 1rem;
+            background: rgba(30, 41, 59, 0.95);
+            padding: 0.5rem 2rem;
             position: fixed;
             width: 100%;
             top: 0;
@@ -33,7 +33,7 @@
             gap: 2rem;
         }
 
-        .ra-logo {
+        .aton-logo {
             height: 50px;
         }
 
@@ -45,7 +45,7 @@
         }
 
         nav a:hover {
-            color: var(--quantum-purple);
+            color: var(--climate-blue);
         }
 
         main {
@@ -55,13 +55,13 @@
         }
 
         h1, h2 {
-            background: linear-gradient(90deg, var(--quantum-purple), var(--neon-blue));
+            background: linear-gradient(90deg, var(--climate-blue), var(--earth-green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .section {
-            background: #1a1f35;
+            background: #1e293b;
             padding: 2rem;
             border-radius: 10px;
             margin: 2rem 0;
@@ -77,7 +77,7 @@
 
         code {
             font-family: 'Fira Code', monospace;
-            color: var(--neon-blue);
+            color: var(--climate-blue);
         }
 
         ul {
@@ -89,15 +89,20 @@
             margin: 0.5rem 0;
         }
 
-        .requirements-grid {
+        .tech-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin: 2rem 0;
         }
 
+        .tech-card {
+            border-left: 3px solid var(--climate-blue);
+            padding-left: 1rem;
+        }
+
         footer {
-            background: #1a1f35;
+            background: #1e293b;
             padding: 2rem;
             text-align: center;
         }
@@ -105,7 +110,7 @@
 </head>
 <body>
     <header>
-        <img src="img/Logo.png" alt=" RALogo" class="ra-logo">
+        <img src="img/aton4stlogo.jpg" alt="Aton4ST Logo" class="aton-logo">
         <nav>
             <a href="index.html">Home</a>  
             <a href="features.html">Features</a>
@@ -116,78 +121,81 @@
     </header>
 
     <main>
-        <h1>QuantumMind AI project: RA Space Exploration training system</h1>
+        <h1>Aton4ST: Democratizing Earth Observation Data</h1>
 
         <div class="section">
-            <h2>About the Project</h2>
-            <p>The proposed solution leverages state-of-the-art virtual and augmented reality technologies combined with AI to create a fully immersive training environment. This system simulates every phase of the space tourism experience, offering a cutting-edge approach to preparing space tourists for the realities of space travel.</p>
-            
-            <h3>Key Components</h3>
-            <div class="requirements-grid">
-                <div>
-                    <h4>Immersive VR Environment</h4>
+            <h2>Project Mission</h2>
+            <p>We bridge the gap between complex space science data and public understanding through AI-powered tools, enabling global participation in climate research and space exploration.</p>
+
+            <h3>Core Technologies</h3>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>AI Climate Chatbot</h4>
                     <ul>
-                        <li>Realistic Spaceflight Simulation</li>
-                        <li>Advanced Physics Integration</li>
-                        <li>Zero-Gravity Experience</li>
+                        <li>Natural Language Processing</li>
+                        <li>NASA/ESA Data Integration</li>
+                        <li>Real-time Analytics</li>
                     </ul>
                 </div>
-                <div>
-                    <h4>AR Overlay System</h4>
+                <div class="tech-card">
+                    <h4>3D Data Visualization</h4>
                     <ul>
-                        <li>Real-Time Data Display</li>
-                        <li>Interactive Walkthroughs</li>
-                        <li>Emergency Procedure Guidance</li>
+                        <li>WebGL Globe Renderer</li>
+                        <li>Time-Series Animation</li>
+                        <li>Interactive Heatmaps</li>
                     </ul>
                 </div>
-                <div>
-                    <h4>AI Personalization</h4>
+                <div class="tech-card">
+                    <h4>Citizen Science Platform</h4>
                     <ul>
-                        <li>Adaptive Training Modules</li>
-                        <li>Emergency Scenario Generation</li>
-                        <li>Natural Language Interaction</li>
+                        <li>Crowdsourced Analysis</li>
+                        <li>Educational Modules</li>
+                        <li>SDG Progress Tracking</li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="section">
-            <h2>Development Requirements</h2>
+            <h2>Technical Architecture</h2>
             <ul>
-                <li>Game engines (Unity/Unreal Engine)</li>
-                <li>Advanced physics engines</li>
-                <li>AR glasses/HUD displays</li>
-                <li>AI/ML algorithms</li>
-                <li>Cloud services infrastructure</li>
+                <li>AI/ML Models: TensorFlow/PyTorch</li>
+                <li>Data Pipeline: Apache Airflow</li>
+                <li>Visualization: Three.js/Chart.js</li>
+                <li>Cloud Infrastructure: AWS/GraniteAI</li>
+                <li>API Services: GraphQL/REST</li>
             </ul>
         </div>
 
         <div class="section">
-            <h2>Installation Guidelines</h2>
-            <pre><code>git clone https://github.com/aimtyaem/RA-Space-exploration.git
-cd RA-Space-exploration</code></pre>
-            
+            <h2>Getting Started</h2>
+            <pre><code>git clone https://github.com/aton4st/climate-platform.git
+cd climate-platform
+npm install
+npm run dev</code></pre>
+
             <h3>Dependencies</h3>
             <ol>
-                <li>Install game engine (Unity/Unreal)</li>
-                <li>Configure physics engine</li>
-                <li>Set up AR hardware SDKs</li>
-                <li>Connect cloud services</li>
+                <li>Node.js v18+</li>
+                <li>Python 3.9+</li>
+                <li>PostgreSQL 14+</li>
+                <li>GDAL 3.5+</li>
+                <li>TensorFlow.js 4.0+</li>
             </ol>
         </div>
 
         <div class="section">
-            <h2>License</h2>
-            <p>MIT Licensed - See <a href="#license">LICENSE</a> for details.</p>
+            <h2>Open Science Commitment</h2>
+            <p>Apache 2.0 Licensed - See <a href="#license">LICENSE</a> for details. All datasets adhere to FAIR principles.</p>
         </div>
     </main>
 
     <footer>
-        <p>© 2025 AIMTY</p>
-        <p>Maintainer: <a href="https://github.com/aimtyaem">aimtyaem</a></p>
+        <p>© 2025 Aton4ST Collective</p>
+        <p>Maintained by the Open Climate Science Alliance</p>
         <div>
-            <a href="#privacy">Privacy Policy</a> | 
-            <a href="#terms">Terms of Service</a>
+            <a href="#privacy">Data Policy</a> | 
+            <a href="#terms">Contribution Guidelines</a>
         </div>
     </footer>
 
@@ -206,11 +214,11 @@ cd RA-Space-exploration</code></pre>
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(26, 31, 53, 0.98)';
+                header.style.background = 'rgba(30, 41, 59, 0.98)';
             } else {
-                header.style.background = 'rgba(26, 31, 53, 0.95)';
+                header.style.background = 'rgba(30, 41, 59, 0.95)';
             }
         });
     </script>
 </body>
-          </html>
+</html>
