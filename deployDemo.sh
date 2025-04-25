@@ -4,7 +4,7 @@
 set -e
 
 # Specify the branch to start
-BRANCH="your-branch-name"
+BRANCH="master"
 
 # Checkout the branch
 git checkout $BRANCH
