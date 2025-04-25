@@ -1,0 +1,12 @@
+{
+     "name": "vr-training-server",
+     "version": "1.0.0",
+     "description": "A local server for VR training scenarios",
+     "main": "demo.js",
+     "scripts": {
+       "start": "node demo.js"
+     },
+     "dependencies": {
+       "open": "^8.4.0"
+     }
+   }

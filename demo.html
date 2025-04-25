@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumMind AI - Demo</title>
+    <link rel="stylesheet" href="css/demo.css">
+<!-- Three.js Dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/webxr/VRButton.js"></script>
+  <link rel="stylesheet" href="css/demo.css">
+</head>
+<body>
+<!-- Header -->
+        <header>
+        <img src="img/Logo.png" alt=" RALogo" class="ra-logo">
+        <nav>
+            <a href="index.html">Home</a>  
+            <a href="features.html">Features</a>
+            <a href="demo.html">Demo</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+</br>
+</br>
+    <div class="demo-container">
+        <section id="demo-video">
+            <h2>QuantumMind AI in Action</h2>
+              <div class="video-embed">
+    <iframe src="https://www.youtube.com/embed/w7aL26VlFu4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+                <h3>Core Simulation Logic</h3>
+                <pre><code>// AI Stress Management Algorithm
+
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+public class VRScenarioController : MonoBehaviour
+{
+    private QuantumMindAI ai;
+    private bool scenarioActive = true;
+
+    void Start()
+    {
+        ai = new QuantumMindAI();
+        StartCoroutine(RunScenario());
+    }
+
+    IEnumerator RunScenario()
+    {
+        while (scenarioActive)
+        {
+            float currentStress = ai.UpdateStress(0.1f);
+            DisplayStressLevel(currentStress);
+            TriggerFeedback(currentStress);
+            yield return new WaitForSeconds(1.0f); // Adjust the time interval as needed
+        }
+    }
+
+    void DisplayStressLevel(float stressLevel)
+    {
+        Debug.Log("Current Stress Level: " + stressLevel);
+        // Implement VR display of stress level here
+    }
+
+    void TriggerFeedback(float stressLevel)
+    {
+        if (stressLevel > 70)
+        {
+            // Implement feedback for high stress levels in VR scenario
+            Debug.Log("High Stress Level Detected - Triggering Feedback");
+        }
+    }
+}
+
+public class QuantumMindAI
+{
+    private float stressLevel = 30;
+    private readonly Dictionary<string, float> stressFactors = new Dictionary<string, float>
+    {
+        { "environment", 0.7f },
+        { "isolation", 0.4f },
+        { "task_load", 0.5f }
+    };
+
+    public float UpdateStress(float delta)
+    {
+        stressLevel += GetTotalStressFactors() * delta;
+        stressLevel = Mathf.Clamp(stressLevel, 0, 100);
+        return stressLevel;
+    }
+
+    public float ApplyIntervention(float effectiveness)
+    {
+        stressLevel -= 20 * effectiveness;
+        stressLevel = Mathf.Clamp(stressLevel, 0, 100);
+        return stressLevel;
+    }
+
+    private float GetTotalStressFactors()
+    {
+        float total = 0;
+        foreach (var factor in stressFactors)
+        {
+            total += factor.Value;
+        }
+        return total;
+    }
+}
+</code></pre>
+            </div>
+        </section>
+
+        <div class="interactive-demo">
+            <div class="vr-preview">
+                <h3>VR Training Preview</h3>
+                <div id="vr-scene">
+                    <img src="img/ar.gif" alt="VR Scene" style="width:100%">
+                </div>
+                <div class="simulation-controls">
+                </div>
+            </div>
+
+            <div class="stress-simulator">
+                <h3>Stress Simulation</h3>
+                <div class="stress-meter">
+                    <div class="progress-bar" style="height: 30px; background: #334;">
+                        <div id="stress-progress" style="width: 30%; height: 100%; 
+                             background: linear-gradient(90deg, #6c5ce7, #48dbfb);"></div>
+                    </div>
+                    <div id="stress-value" style="margin-top: 10px;">30%</div>
+                </div>
+                <div class="bio-feedback" style="margin-top: 20px;">
+                    <p>Heart Rate: <span id="heart-rate">82</span> BPM</p>
+                    <p>Oxygen Sats: <span id="oxygen">95</span>%</p>
+                </div>
+                <div class="interventions" style="margin-top: 20px;">
+<button onclick="startScenario()">Start</button>
+<button onclick="resetScenario()">Reset</button>
+                    <button onclick="applyBreathing()">Apply Breathing Exercise</button>
+                    <button onclick="findSolution()">Find Solution</button>
+<!-- Canvas element for VR rendering -->
+  <canvas id="vrCanvas"></canvas>
+<!-- Include the VRtraining.js script -->
+  <script src="js/VRtraining.js"></script>
+  
+  <!-- Connection Code -->
+  <script>
+    // Function to start the VR training scenario
+    function startVRTraining() {
+      if (typeof VRtraining !== "undefined" && typeof VRtraining.connect === "function") {
+        VRtraining.connect({
+          canvas: document.getElementById("vrCanvas"),
+          serverUrl: "http://localhost:8001"
+        });
+      } else {
+        console.error("js/VRtraining.js is not loaded or does not have a connect method.");
+      }
+    }
+
+    // Add event listener to trigger the connection when the "Find Solution" button is clicked
+    window.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("findSolution").addEventListener("click", startVRTraining);
+    });
+  </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/demo.js"></script>
+    </br>
+<footer>  
+  <p>© 2025 AIMTY. "Your Mental Spacesuit."</p>  
+  <a href="#license">License</a> | <a href="#privacy">Privacy</a>  
+</footer>  
+</body>
+</html>

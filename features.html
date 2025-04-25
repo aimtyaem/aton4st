@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumMind AI - VR Training Module</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #0a0f24;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header with Horizontal Menu */
+        header {
+            background: #1a1f35;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            margin: 0 1rem;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        header nav ul li a:hover {
+            color: #6c5ce7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: flex;
+            gap: 30px;
+        }
+
+        .vr-scene {
+            flex: 2;
+            background: #1a1f35;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard {
+            flex: 1;
+            background: #1a1f35;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .stress-indicator {
+            background: #2a2f45;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 30px;
+            background: #334;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress {
+            height: 100%;
+            width: 50%;
+            background: linear-gradient(90deg, #6c5ce7, #48dbfb);
+            transition: width 0.3s ease;
+        }
+
+        .chatbot {
+            background: #2a2f45;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            min-height: 150px;
+        }
+
+        button {
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #8577ef;
+        }
+
+        /* AR Overlay Section */
+        .ar-overlay {
+            margin-top: 20px;
+            padding: 20px;
+            background: #2a2f45;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .ar-overlay img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 8px;
+        }
+
+        .ar-overlay p {
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+
+        /* Chat System */
+        .chat-system {
+            margin-top: 20px;
+            padding: 20px;
+            background: #2a2f45;
+            border-radius: 8px;
+        }
+
+        .chat-history {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #444;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #1a1f35;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .user-message {
+            background: #6c5ce7;
+            text-align: right;
+        }
+
+        .bot-message {
+            background: #48dbfb;
+            text-align: left;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background: #1a1f35;
+            color: #fff;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Horizontal Menu -->
+    <header>
+        <img src="img/Logo.png" alt="QuantumMind AI Logo" width="150">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="demo.html">Demo </a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- VR Scene Container -->
+        <div class="vr-scene" id="vrContainer">
+            <h2>Oxygen Leak Emergency</h2>
+            <div id="sceneEffects">
+                <!-- Visual effects would be implemented in actual VR engine -->
+                <img src="img/oxygen.jpg" alt="VR Scene" style="width:100%">
+            </div>
+            <div class="interactive-elements">
+                <button onclick="performBreathingExercise()">Start Breathing Exercise</button>
+                <button onclick="findOxygenTank()">Locate Oxygen Tank</button>
+            </div>
+        </div>
+
+        <!-- Stress Dashboard -->
+        <div class="dashboard">
+            <div class="stress-indicator">
+                <h3>Stress Level</h3>
+                <div class="progress-bar">
+                    <div class="progress" id="stressProgress" style="width: 30%"></div>
+                </div>
+                <div id="stressValue">30%</div>
+            </div>
+
+            <div class="heart-rate">
+                <h3>Heart Rate</h3>
+                <div id="bpm">82 BPM</div>
+            </div>
+
+            <div class="chatbot">
+                <h4>Virtual Companion</h4>
+                <div id="chatMessages">
+                    <p>> System Ready</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AR Overlay Section -->
+    <div class="ar-overlay" id="ar-overlay">
+        <h2>AR Breathing Exercise</h2>
+        <img src="img/vr.gif" alt="AR Breathing Exercise">
+        <p>Follow the AR overlay to practice diaphragmatic breathing:</p>
+        <p><strong>Inhale for 4s → Hold for 6s → Exhale for 8s</strong></p>
+        <button onclick="startARBreathing()">Start AR Breathing</button>
+    </div>
+
+    <!-- Chat System -->
+    <div class="chat-system">
+        <h2>Ask Expertbot</h2>
+        <div class="chat-history" id="chat-history">
+            <div class="message bot-message">RA: Hello! I'm simulated stress expert. Ask me anything about stress and mood.</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type your question...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Stress Simulation
+        let stressLevel = 30;
+        let stressInterval;
+        
+        function startStressSimulation() {
+            stressInterval = setInterval(() => {
+                if(stressLevel < 100) {
+                    stressLevel += Math.random() * 2;
+                    updateDashboard();
+                }
+            }, 2000);
+        }
+
+        function performBreathingExercise() {
+            if(stressLevel > 20) {
+                stressLevel -= 20;
+                addChatMessage("Well done! Stress reduced through breathing exercise.");
+                updateDashboard();
+            }
+        }
+
+        function findOxygenTank() {
+            addChatMessage("Follow the green lights to emergency oxygen supply!");
+            // Would trigger visual effects in actual implementation
+        }
+
+        function updateDashboard() {
+            // Update stress display
+            document.getElementById('stressProgress').style.width = stressLevel + '%';
+            document.getElementById('stressValue').textContent = Math.round(stressLevel) + '%';
+            
+            // Update heart rate
+            document.getElementById('bpm').textContent = 
+                Math.floor(80 + (stressLevel * 0.3)) + ' BPM';
+            
+            // Trigger chatbot warnings
+            if(stressLevel > 75) {
+                addChatMessage("Warning: Critical stress levels! Focus on breathing.");
+            } else if(stressLevel > 50) {
+                addChatMessage("Stress levels rising. Recommend calming exercises.");
+            }
+        }
+
+        function addChatMessage(text) {
+            const chatDiv = document.getElementById('chatMessages');
+            chatDiv.innerHTML += `<p>> ${text}</p>`;
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
+
+        // AR Breathing Exercise
+        function startARBreathing() {
+            alert("AR Breathing Exercise Started! Follow the on-screen instructions.");
+            addChatMessage("AR Breathing Exercise: Inhale 4s → Hold 6s → Exhale 8s");
+        }
+
+        // Chat System
+        const API_KEY = 'AIzaSyB-qg2CY7gGfowh5ITW5PwljgMMXlNKVHg';
+        let chatHistory = [];
+
+        async function sendMessage() {
+            const input = document.getElementById('user-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=${API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: `You are a psychiatrist expert. Answer questions about the stress. Current question: ${message}`
+                            }]
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+                const botResponse = data.candidates[0].content.parts[0].text;
+                addMessage(botResponse, 'bot');
+            } catch (error) {
+                addMessage("Error connecting to the chat service", 'bot');
+            }
+        }
+
+        function addMessage(text, sender) {
+            const history = document.getElementById('chat-history');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.textContent = `${sender === 'user' ? 'You: ' : 'RA: '}${text}`;
+            history.appendChild(messageDiv);
+            history.scrollTop = history.scrollHeight;
+        }
+
+        // Start simulation when page loads
+        window.onload = startStressSimulation;
+    </script>
+<footer>  
+  <p>© 2025 AIMTY. "Your Mental Spacesuit."</p>  
+  <a href="#license"><License/a> | <a href="#privacy">Privacy</a>  
+</footer>  
+</body>
+</html>
