@@ -1,5 +1,5 @@
 # Aton4ST
-![Aton4ST Logo]{#}
+![Aton4ST Logo](img/aton4stlogo.jpg) 
 # QuantumMind AI project
 **RA Space exploration training system:**
 ![RA Logo](img/Logo.png)
