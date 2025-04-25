@@ -16,8 +16,29 @@ Aton4ST is an innovative platform designed to break down barriers in space scien
 | Feature | Description |
 |---------|-------------|
 | **AI-Powered Chatbot** | Context-aware assistance for space science queries using advanced NLP |
-| **Interactive Modules** | Hands-on data exploration with real
+| **Interactive Modules** | Hands-on data exploration with realtime graphs & charts |
 
+
+## Quick Start  
+```bash
+git clone https://github.com/aimtyaem/aton4st.git
+cd aton4st
+npm install
+npm run dev
+```
+
+## Why Aton4ST?  
+We bridge the gap between complex space science data and public understanding through:  
+✅ **Educational Modules** for all ages  
+✅ **Open Data Access** following FAIR principles  
+✅ **Collaborative Tools** for global climate research  
+
+## Contributing  
+We welcome:  
+🌱 **Data Scientists** for ML model development  
+🖥️ **Developers** for visualization tools  
+📚 **Educators** for content creation  
+🌍 **Citizens** for data analysis  
 
 ## License
 
