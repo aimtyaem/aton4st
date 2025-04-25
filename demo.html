@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/demo.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    </head>
+</head>
 <body>
     <header>
         <img src="img/aton4stlogo.jpg" alt="Aton4ST Logo" class="logo">
@@ -24,66 +24,24 @@
         <section id="demo-video">
             <h2>Aton4ST Platform Overview</h2>
             <div class="video-embed">
-                 <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Aton4ST Demo Placeholder" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Aton4ST Demo Placeholder" frameborder="0"></iframe>
             </div>
 
-            <h3>Climate Analysis Engine (Conceptual Code)</h3>
-            <pre><code>// AI Climate Pattern Detection Algorithm (Server-Side Concept)
-class ClimateAnalyzer {
-    constructor() { /* ... models ... */ }
-    analyzeDataset(dataset) { /* ... analysis logic ... */ }
-    // Visualization might happen client-side based on results
-}
-
-// Placeholder Model Classes (Server-Side Concept)
-class NeuralNetwork { predict(data) { /* ... */ } }
-class RegressionModel { calculateCorrelation(d1, d2) { /* ... */ } }
-class TimeSeriesAnalyzer { calculateSlope(data) { /* ... */ } }</code></pre>
-
-             <div class="climate-analysis-trigger">
+            <h3>Climate Analysis Engine</h3>
+            <div class="climate-analysis-trigger">
                 <h3>Run Server-Side Analysis</h3>
                 <button onclick="runClimateAnalysis()">Analyze Mock Dataset</button>
                 <h4>Analysis Results:</h4>
                 <pre id="analysis-results">Click button to run analysis...</pre>
             </div>
-            </section>
+        </section>
 
         <div class="interactive-demo">
-            <div class="globe-preview">
-                <h3>Climate Data Visualization</h3>
-                 <div id="globe-scene" style="width: 100%; height: 400px; background-color: #111; border-radius: 5px; overflow: hidden;">
-                    <canvas id="climateGlobe"></canvas>
-                </div>
-                <div class="simulation-controls">
-                    <button onclick="alert('Globe rotation started/stopped (implement function)')">Toggle Rotation</button>
-                    <button onclick="alert('Focusing on Amazon (implement function)')">Amazon Deforestation</button>
-                    <button onclick="alert('Focusing on Arctic (implement function)')">Arctic Ice</button>
-                </div>
-            </div>
-
             <div class="climate-dashboard">
                 <h3>Real-time Climate Metrics</h3>
-
-                <div class="climate-metrics">
-                    <div class="metric-card">
-                        <div class="progress-circle" data-value="75">
-                            <span>1.1°C</span>
-                        </div>
-                        <p>Global Warming</p>
-                    </div>
-
-                    <div class="metric-card">
-                         <div class="progress-circle" data-value="68">
-                            <span>420ppm</span>
-                        </div>
-                        <p>Atmospheric CO₂</p>
-                    </div>
-                </div>
-
                 <div class="chart-container">
                     <canvas id="climateChart"></canvas>
                 </div>
-
                 <div class="climate-chatbot">
                     <h4>Climate Data Assistant</h4>
                     <div class="chat-history" id="climateChat">
@@ -103,261 +61,84 @@ class TimeSeriesAnalyzer { calculateSlope(data) { /* ... */ } }</code></pre>
         <a href="#">License</a> | <a href="#">Privacy</a>
     </footer>
 
-
     <script>
-      // Wrap all script logic in DOMContentLoaded to ensure elements exist
-      document.addEventListener('DOMContentLoaded', function() {
-        console.log("DOM Fully Loaded - Initializing Scripts");
+        // Ensure DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM Fully Loaded - Initializing Scripts");
 
-        // --- Climate Analysis Call Function (Previously in climate_analyzer.js) ---
-        async function analyzeDatasetOnServer(dataset) {
-            console.log("Client: Sending dataset to server for analysis...", dataset);
-            const resultsDisplay = document.getElementById('analysis-results');
-            if (resultsDisplay) resultsDisplay.textContent = 'Sending data to server...';
+            // --- Climate Analysis API Call ---
+            async function runClimateAnalysis() {
+                const resultsDisplay = document.getElementById('analysis-results');
+                resultsDisplay.textContent = 'Analyzing...';
 
-            try {
-                const response = await fetch('/api/analyze', { // Calls the endpoint defined in server.js
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dataset), // Send the actual dataset as JSON
-                });
+                // Mock dataset
+                const mockDataset = [
+                    { temp: 15.1, co2: 380, seaLevel: 0.1 },
+                    { temp: 15.2, co2: 385, seaLevel: 0.12 },
+                    { temp: 15.3, co2: 390, seaLevel: 0.15 }
+                ];
 
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
-                    throw new Error(`Server error: ${response.status} ${response.statusText} - ${errorData?.error || 'Unknown error'}`);
-                }
+                try {
+                    const response = await fetch('/api/analyze', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(mockDataset)
+                    });
 
-                const analysisResults = await response.json(); // Parse the JSON response from the server
-                console.log("Client: Received analysis results from server:", analysisResults);
-                return analysisResults;
-
-            } catch (error) {
-                console.error("Client: Error communicating with /api/analyze:", error);
-                 if(resultsDisplay) resultsDisplay.textContent = `Error analyzing data: ${error.message}`;
-                return { temperatureTrend: "Error", co2Impact: "Error", seaLevel: "Error", error: error.message };
-            }
-        }
-
-        // --- Function to Trigger Climate Analysis ---
-        window.runClimateAnalysis = async function() {
-             console.log("Button clicked: Running climate analysis...");
-             const resultsDisplay = document.getElementById('analysis-results');
-             if (resultsDisplay) resultsDisplay.textContent = 'Analyzing...';
-
-             // Mock dataset to send to server (replace with real data if available)
-            const mockDataset = [
-                { temp: 15.1 + Math.random(), co2: 380 + Math.random()*20, seaLevel: 0.1 + Math.random()*0.1 },
-                { temp: 15.2 + Math.random(), co2: 385 + Math.random()*20, seaLevel: 0.12 + Math.random()*0.1 },
-                { temp: 15.3 + Math.random(), co2: 390 + Math.random()*20, seaLevel: 0.15 + Math.random()*0.1 },
-                { temp: 15.4 + Math.random(), co2: 395 + Math.random()*20, seaLevel: 0.18 + Math.random()*0.1 },
-                { temp: 15.5 + Math.random(), co2: 400 + Math.random()*20 } // Missing seaLevel example
-            ];
-
-            const analysisResults = await analyzeDatasetOnServer(mockDataset);
-
-            // Display results
-            if (resultsDisplay) {
-                resultsDisplay.textContent = JSON.stringify(analysisResults, null, 2); // Pretty print JSON
-            }
-        }
-
-
-        // --- Three.js Globe Initialization ---
-        try {
-            const globeCanvas = document.getElementById('climateGlobe');
-            const globeContainer = document.getElementById('globe-scene'); // Get container for size
-
-            if (globeCanvas && globeContainer && typeof THREE !== 'undefined') {
-                const sceneWidth = globeContainer.clientWidth;
-                const sceneHeight = globeContainer.clientHeight;
-
-                const globeScene = new THREE.Scene();
-                // Adjust camera aspect ratio based on container size
-                const camera = new THREE.PerspectiveCamera(75, sceneWidth / sceneHeight, 0.1, 1000);
-                camera.position.z = 10; // Move camera back to see the sphere
-
-                // Use the existing canvas element
-                const renderer = new THREE.WebGLRenderer({ canvas: globeCanvas, antialias: true, alpha: true });
-                renderer.setSize(sceneWidth, sceneHeight); // Set size based on container
-                renderer.setPixelRatio(window.devicePixelRatio); // Adjust for high DPI displays
-                renderer.setClearColor(0x000000, 0); // Make background transparent if needed
-
-                // Globe Creation
-                const geometry = new THREE.SphereGeometry(4, 32, 32); // Slightly smaller radius
-                const textureLoader = new THREE.TextureLoader();
-                // Ensure these images exist in ./img/ folder
-                const material = new THREE.MeshPhongMaterial({
-                    map: textureLoader.load('img/earth-texture.jpg'),
-                    // bumpMap: textureLoader.load('img/earth-bump.jpg'), // Optional bump map
-                    // bumpScale: 0.05 // Adjust bump scale if using bump map
-                    specularMap: textureLoader.load('img/earth-specular.jpg'), // Optional specular map for water shine
-                    specular: new THREE.Color('grey') // Adjust shininess
-                });
-                const earth = new THREE.Mesh(geometry, material);
-                globeScene.add(earth);
-
-                // Lighting
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); // Softer ambient light
-                globeScene.add(ambientLight);
-                const pointLight = new THREE.PointLight(0xffffff, 0.9); // Slightly less intense point light
-                pointLight.position.set(15, 20, 15); // Adjust light position
-                globeScene.add(pointLight);
-
-                // Animation Loop
-                let isRotating = true; // Control rotation
-                function animateGlobe() {
-                    requestAnimationFrame(animateGlobe);
-                    if (isRotating) {
-                        earth.rotation.y += 0.003; // Slower rotation
+                    if (!response.ok) {
+                        throw new Error(`Error: ${response.status}`);
                     }
-                    // Add OrbitControls updates here if you re-enable them
-                    // controls.update();
-                    renderer.render(globeScene, camera);
+
+                    const results = await response.json();
+                    resultsDisplay.textContent = JSON.stringify(results, null, 2);
+                } catch (error) {
+                    console.error("Error analyzing data:", error);
+                    resultsDisplay.textContent = `Error: ${error.message}`;
                 }
-                animateGlobe();
-
-                // Simple Rotation Toggle Example (replace alert in button)
-                 window.startGlobeRotation = function() { // Changed name for clarity
-                    isRotating = !isRotating;
-                    console.log("Globe rotation toggled:", isRotating);
-                }
-
-                 // Handle window resize
-                 window.addEventListener('resize', () => {
-                     const newWidth = globeContainer.clientWidth;
-                     const newHeight = globeContainer.clientHeight;
-                     camera.aspect = newWidth / newHeight;
-                     camera.updateProjectionMatrix();
-                     renderer.setSize(newWidth, newHeight);
-                 }, false);
-
-            } else {
-                 console.error("Could not initialize Globe: Canvas, Container, or THREE.js missing.");
-                 const globeContainer = document.getElementById('globe-scene');
-                 if(globeContainer) globeContainer.innerHTML = "<p style='color:red; text-align: center; padding-top: 50px;'>Error loading 3D Globe.</p>";
             }
-        } catch (e) {
-             console.error("Error during Three.js Globe setup:", e);
-             const globeContainer = document.getElementById('globe-scene');
-             if(globeContainer) globeContainer.innerHTML = "<p style='color:red; text-align: center; padding-top: 50px;'>Error loading 3D Globe.</p>";
-        }
 
+            // --- Chatbot API Call ---
+            async function sendClimateQuery() {
+                const input = document.getElementById('climateQuery');
+                const message = input.value.trim();
+                const chat = document.getElementById('climateChat');
+                if (!message) return;
 
-        // --- Chart.js Configuration ---
-        try {
-            const ctx = document.getElementById('climateChart')?.getContext('2d');
-            if (ctx && typeof Chart !== 'undefined') {
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['2000', '2005', '2010', '2015', '2020', '2024'], // Added more recent year
-                        datasets: [{
-                            label: 'Global Temperature Anomaly (°C)',
-                            data: [0.42, 0.62, 0.72, 0.87, 1.02, 1.1], // Example data point
-                            borderColor: '#ff6b6b',
-                            backgroundColor: 'rgba(255, 107, 107, 0.2)', // Optional fill color
-                            fill: true, // Enable fill
-                            tension: 0.1 // Slight curve
-                        }, {
-                            label: 'Atmospheric CO₂ (ppm)',
-                            data: [369, 379, 389, 399, 412, 420], // Example data point
-                            borderColor: '#4ecdc4',
-                            backgroundColor: 'rgba(78, 205, 196, 0.2)', // Optional fill color
-                            fill: true, // Enable fill
-                            tension: 0.1 // Slight curve
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false, // Allow chart to fill container height
-                        plugins: {
-                            legend: { labels: { color: '#333' } }, // Darker labels assuming light background in CSS
-                            tooltip: { mode: 'index', intersect: false }
-                        },
-                        scales: {
-                            y: { ticks: { color: '#333' }, grid: { color: '#eee' } }, // Darker ticks, lighter grid
-                            x: { ticks: { color: '#333' }, grid: { color: 'transparent' } } // Hide x-axis grid
-                        }
+                // Add user message to chat
+                const userMsg = document.createElement('div');
+                userMsg.className = 'message user';
+                userMsg.textContent = message;
+                chat.appendChild(userMsg);
+
+                // Add thinking message
+                const thinkingMsg = document.createElement('div');
+                thinkingMsg.className = 'message bot';
+                thinkingMsg.textContent = 'Thinking...';
+                chat.appendChild(thinkingMsg);
+
+                try {
+                    const response = await fetch('/api/climate-ai', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ query: message })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Error: ${response.status}`);
                     }
-                });
-            } else {
-                 console.error("Could not initialize Chart: Canvas Context or Chart.js missing.");
-                 const chartContainer = document.querySelector('.chart-container');
-                 if (chartContainer) chartContainer.innerHTML = "<p style='color:red; text-align: center;'>Error loading chart.</p>";
-            }
-        } catch(e) {
-            console.error("Error during Chart.js setup:", e);
-            const chartContainer = document.querySelector('.chart-container');
-            if (chartContainer) chartContainer.innerHTML = "<p style='color:red; text-align: center;'>Error loading chart.</p>";
-        }
 
-
-        // --- Chatbot Logic ---
-        window.sendClimateQuery = async function() {
-            const input = document.getElementById('climateQuery');
-            const message = input.value.trim();
-            if (!message) return;
-
-            const chat = document.getElementById('climateChat');
-
-            // Add user message to chat history
-            const userMsg = document.createElement('div');
-            userMsg.className = 'message user';
-            userMsg.textContent = message;
-            chat.appendChild(userMsg);
-            chat.scrollTop = chat.scrollHeight; // Scroll down
-            input.value = ''; // Clear input field
-            input.disabled = true; // Disable input while waiting for response
-
-            // Add thinking indicator
-            const thinkingMsg = document.createElement('div');
-            thinkingMsg.className = 'message bot typing'; // Add typing class for potential CSS animation
-            thinkingMsg.textContent = 'Thinking...';
-            chat.appendChild(thinkingMsg);
-            chat.scrollTop = chat.scrollHeight; // Scroll down
-
-            try {
-                // Get bot response from the server API
-                const response = await fetch('/api/climate-ai', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ query: message }) // Send query in JSON format
-                });
-
-                 chat.removeChild(thinkingMsg); // Remove thinking message
-
-                if (!response.ok) {
-                     const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
-                    throw new Error(`Server error: ${response.status} ${response.statusText} - ${errorData?.error || 'Unknown error'}`);
+                    const data = await response.json();
+                    thinkingMsg.textContent = data.answer;
+                } catch (error) {
+                    console.error("Error fetching chatbot response:", error);
+                    thinkingMsg.textContent = `Error: ${error.message}`;
                 }
-
-                const data = await response.json();
-
-                // Add bot message to chat history
-                const botMsg = document.createElement('div');
-                botMsg.className = 'message bot';
-                botMsg.textContent = data.answer || "Sorry, I couldn't process that."; // Use response or fallback
-                chat.appendChild(botMsg);
-
-            } catch (error) {
-                 chat.removeChild(thinkingMsg); // Remove thinking message even on error
-                console.error("Error fetching chatbot response:", error);
-                // Display error in chat
-                const errorMsg = document.createElement('div');
-                errorMsg.className = 'message bot error'; // Style differently for errors
-                errorMsg.textContent = `Error: ${error.message}`;
-                chat.appendChild(errorMsg);
-            } finally {
-                input.disabled = false; // Re-enable input
-                input.focus(); // Set focus back to input
-                chat.scrollTop = chat.scrollHeight; // Ensure scrolled to bottom
             }
-        }
 
-        console.log("All scripts initialized.");
-
-      }); // End DOMContentLoaded wrapper
+            // Attach functions to global scope
+            window.runClimateAnalysis = runClimateAnalysis;
+            window.sendClimateQuery = sendClimateQuery;
+        });
     </script>
-
 </body>
 </html>
