@@ -167,7 +167,6 @@ footer {
     text-decoration: none;
     margin: 0 1rem;
 }
-
 /* Chatbot Messages */
 .climate-chatbot {
     background: #1e293b;
@@ -194,7 +193,14 @@ footer {
     background: #334155;
 }
 
-/* Markdown Code Style */
+/* Bot message text style */
+.message.bot p {
+    color: #ccd6f6;
+    font-size: 1rem; /* Adjust as needed */
+    line-height: 1.4; /* Adjust as needed */
+}
+
+/* Markdown Code Style - Keep these in case you want to display code snippets */
 .message.bot code {
     display: inline-block;
     background: rgba(255, 255, 255, 0.1);
@@ -213,12 +219,4 @@ footer {
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.9rem;
     overflow-x: auto;
-}
-
-/* Background Animation */
-.particles {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
 }
