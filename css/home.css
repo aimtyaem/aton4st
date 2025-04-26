@@ -12,33 +12,73 @@ body {
     line-height: 1.6;
 }
 
+
+/* Header Styles */
 header {
-            background: rgba(26, 31, 53, 0.95);
-            padding: 0rem 1rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
+    background: rgba(26, 31, 53, 0.95);
+    padding: 0 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
 
-        .ra-logo {
-            height: 50px;
-        }
+.ra-logo {
+    height: 50px;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            transition: color 0.3s ease;
-        }
 
-        nav a:hover {
-            color: var(--quantum-purple);
-        }
+/* Navigation Styles */
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0;
+}
+
+nav li {
+    position: relative;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #6c5ce7;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    header {
+        padding: 0.5rem 1rem;
+    }
+
+    nav a {
+        font-size: 1rem;
+        padding: 0.7rem 1.2rem;
+    }
+}
+
 
 /* Hero Section */
 .hero {
@@ -98,7 +138,8 @@ header {
     background: #8577ef;
 }
 
-/* Features Grid */
+
+/* Features Section */
 .features {
     padding: 4rem 2rem;
     background: #0e1225;
@@ -130,7 +171,8 @@ header {
     color: #6c5ce7;
 }
 
-/* Footer */
+
+/* Footer Styles */
 footer {
     background: #1a1f35;
     padding: 2rem;
@@ -151,6 +193,7 @@ footer {
     text-decoration: none;
     margin: 0 1rem;
 }
+
 
 /* Background Animation */
 .particles {
