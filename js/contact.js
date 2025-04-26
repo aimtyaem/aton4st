@@ -1,4 +1,4 @@
-Lfunction handleSubmit(event) {
+function handleSubmit(event) {
     event.preventDefault();
 
     // Get form values
