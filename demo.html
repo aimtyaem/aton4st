@@ -263,6 +263,40 @@
                 }
             }
         });
+        // Chatbot Logic
+        async function sendClimateQuery() {
+            const input = document.getElementById('climateQuery');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chat = document.getElementById('climateChat');
+
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.textContent = message;
+            chat.appendChild(userMsg);
+
+            // Get bot response
+            const response = await fetch('/api/climate-ai', {
+                method: 'POST',
+                body: JSON.stringify({ query: message })
+            });
+            const data = await response.json();
+
+            // Add bot message
+            const botMsg = document.createElement('div');
+            botMsg.className = 'message bot';
+            //Sanitize the bot output
+            const botText = document.createElement('p');
+            botText.textContent = data.answer;
+            botMsg.appendChild(botText);
+
+            chat.appendChild(botMsg);
+
+            input.value = '';
+            chat.scrollTop = chat.scrollHeight;
+        }
     </script>
 </body>
 </html>
