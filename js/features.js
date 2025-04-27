@@ -57,8 +57,18 @@ document.addEventListener('DOMContentLoaded', () => {
         chatHistory.scrollTop = chatHistory.scrollHeight;
 
         try {
+            // Add loading indicator
+            const loadingMsg = document.createElement('div');
+            loadingMsg.className = 'message bot-message';
+            loadingMsg.innerHTML = '<div class="loading-dots"><span>.</span><span>.</span><span>.</span></div>';
+            chatHistory.appendChild(loadingMsg);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
             const botResponse = await getBotResponse(message);
             
+            // Remove loading indicator
+            chatHistory.removeChild(loadingMsg);
+
             if (botResponse === '__show_chart__') {
                 // Create chat-embedded chart
                 const canvas = document.createElement('canvas');
@@ -128,9 +138,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event listeners
-    document.getElementById('userInput').addEventListener('keypress', (e) => {
+    const userInput = document.getElementById('userInput');
+    const sendButton = document.querySelector('.chat-input button');
+
+    // Handle Enter key
+    userInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') sendMessage();
     });
 
-    document.querySelector('.chat-input button').addEventListener('click', sendMessage);
+    // Handle button click
+    sendButton.addEventListener('click', sendMessage);
 });
