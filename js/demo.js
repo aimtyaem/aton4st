@@ -62,7 +62,7 @@ try {
 }
 
 // --- Modify the /api/climate-ai API Endpoint ---
-else if (pathname === 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=${API_KEY}' && method === 'POST') {
+else if (pathname === '/api/climate-ai' && method === 'POST') {
     let body = '';
     req.on('data', chunk => { body += chunk.toString(); });
     req.on('end', () => {
@@ -74,7 +74,7 @@ else if (pathname === 'https://generativelanguage.googleapis.com/v1beta/models/g
             console.log("User's elective choice:", userChoice);
 
             // --- Mock AI Response Logic ---
-            let botAnswer = "I am a simple climate AI assistant. I received your query: '" + userQuery + "'";
+            let botAnswer = "I am a climate expert. I received your query: '" + userQuery + "'";
             let electiveChoices = [];
 
             // Provide choices from scilib.json
