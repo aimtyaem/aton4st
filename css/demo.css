@@ -10,7 +10,7 @@ body {
     background: #0a0f24;
     color: #fff;
     line-height: 1.6;
-    /* Removed redundant margin: 0 - already handled by universal selector */
+    margin: 0;
 }
 
 /* Header Styles */
@@ -126,34 +126,6 @@ nav a:hover {
     line-height: 1.6;
 }
 
-/* Fixed missing dots in class selectors */
-.scilib-elective-choices { 
-    font-size: 0.98em; 
-}
-.scilib-category { 
-    margin: 0.6em 0 0.2em; 
-    color: #1b5e20; 
-}
-.scilib-dataset { 
-    margin: 0.2em 0; 
-    padding: 2px 0; 
-}
-.scilib-dataset:hover { 
-    background: #e3f2fd; 
-}
-.scilib-advanced { 
-    font-size: 0.95em; 
-    color: #333; 
-}
-.scilib-advanced a { 
-    color: #1976d2; 
-    text-decoration: underline; 
-}
-
-.message.bot strong {
-    color: #48dbfb;
-    font-weight: 500;
-}
 
 .message.bot em {
     color: #8577ef;
@@ -191,7 +163,16 @@ nav a:hover {
     padding: 0;
     font-size: 0.9rem;
 }
-
+scilib-elective-choices { font-size: 0.98em; }
+.scilib-category { margin: 0.6em 0 0.2em; color: #1b5e20; }
+.scilib-dataset { margin: 0.2em 0; padding: 2px 0; }
+.scilib-dataset:hover { background: #e3f2fd; }
+.scilib-advanced { font-size: 0.95em; color: #333; }
+.scilib-advanced a { color: #1976d2; text-decoration: underline; }
+.message.bot strong {
+    color: #48dbfb;
+    font-weight: 500;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
     .dashboard-grid {
