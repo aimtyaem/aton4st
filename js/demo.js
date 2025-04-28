@@ -1,139 +1,231 @@
-// demo.js (Server - UPDATED)
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const open = require('open');
-const url = require('url');
+document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM Fully Loaded - Initializing Scripts");
+            const API_KEY = 'AIzaSyB-qg2CY7gGfowh5ITW5PwljgMMXlNKVHg'; // Consider moving to server-side
 
-// --- Analysis Logic (Lives on the server) ---
-class NeuralNetwork { /* ... (same as before) ... */
-    predict(data) { console.log("NeuralNetwork: Predicting temperature trend (server-side)..."); const validData = data?.filter(d => d !== null && d !== undefined); if (validData && validData.length > 0) { return "Simulated rising temperature trend (from server)"; } else { return "No valid temperature data points (from server)"; } }
-}
-class RegressionModel { /* ... (same as before) ... */
-    calculateCorrelation(co2Data, tempData) { console.log("RegressionModel: Calculating CO2-temperature correlation (server-side)..."); if (co2Data && tempData && co2Data.length > 0 && co2Data.length === tempData.length) { return "Simulated strong positive correlation (from server)"; } else { return "Insufficient/mismatched data for correlation (from server)"; } }
-}
-class TimeSeriesAnalyzer { /* ... (same as before) ... */
-    calculateSlope(data) { console.log("TimeSeriesAnalyzer: Calculating sea level slope (server-side)..."); const validData = data?.filter(d => d !== null && d !== undefined); if (validData && validData.length > 0) { return "Simulated rising sea level trend (from server)"; } else { return "No valid sea level data points (from server)"; } }
-}
-class ClimateAnalyzer { /* ... (same as before) ... */
-     constructor() { this.models = { temperature: new NeuralNetwork(), co2: new RegressionModel(), seaLevel: new TimeSeriesAnalyzer() }; console.log("ClimateAnalyzer initialized on server."); }
-     analyzeDataset(dataset) { console.log("ClimateAnalyzer: Analyzing dataset (server-side)..."); const results = {}; if (!dataset || dataset.length === 0) { console.log("ClimateAnalyzer: Dataset is empty on server."); results.temperatureTrend = "No data provided"; results.co2Impact = "No data provided"; results.seaLevel = "No data provided"; return results; } const tempData = dataset.map(d => d?.temp ?? null); const co2Data = dataset.map(d => d?.co2 ?? null); const seaLevelData = dataset.map(d => d?.seaLevel ?? null); results.temperatureTrend = this.models.temperature.predict(tempData); results.co2Impact = this.models.co2.calculateCorrelation(co2Data, tempData); results.seaLevel = this.models.seaLevel.calculateSlope(seaLevelData); console.log("ClimateAnalyzer: Server-side analysis complete."); return results; }
-}
-const analyzer = new ClimateAnalyzer(); // Instantiate analyzer on server
+            // ---------- Climate Analysis ----------
+            async function fetchClimateData(lat=40.71, lon=-74.01, startDate='2020-01-01', endDate='2023-01-01') {
+                const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${startDate}&end_date=${endDate}&daily=temperature_2m_mean,precipitation_sum&timezone=auto`;
+                
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`HTTP error! ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    console.error("Climate data fetch failed:", error);
+                    return null;
+                }
+            }
 
-// --- Server Request Handling ---
-const requestHandler = (req, res) => {
-    const parsedUrl = url.parse(req.url);
-    const pathname = parsedUrl.pathname;
-    const method = req.method;
-    console.log(`Request received: ${method} ${pathname}`);
+            window.runClimateAnalysis = async function() {
+                const resultsDisplay = document.getElementById('analysis-results');
+                resultsDisplay.textContent = 'Analyzing...';
 
-    // API Endpoint: /api/analyze
-    if (pathname === 'https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${startDate}&end_date=${endDate}&daily=temperature_2m_mean,precipitation_sum&timezone=auto' && method === 'POST') {
-        let body = '';
-        req.on('data', chunk => { body += chunk.toString(); });
-        req.on('end', () => {
-            try {
-                const dataset = JSON.parse(body);
-                console.log("Received dataset for analysis:", dataset);
-                const analysisResults = analyzer.analyzeDataset(dataset); // Use server-side analyzer
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify(analysisResults));
-                console.log("Sent analysis results to client.");
-            } catch (error) {
-                console.error("Error processing /api/analyze request:", error);
-                res.writeHead(400, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ error: 'Invalid JSON data for analysis' }));
+                try {
+                    const climateData = await fetchClimateData();
+                    if (!climateData) throw new Error("No climate data received");
+
+                    const analysisData = climateData.daily.time.map((date, index) => ({
+                        date,
+                        temperature: climateData.daily.temperature_2m_mean[index],
+                        precipitation: climateData.daily.precipitation_sum[index]
+                    }));
+
+                    resultsDisplay.textContent = JSON.stringify(analysisData, null, 2);
+                } catch (error) {
+                    resultsDisplay.textContent = `Error: ${error.message}`;
+                }
+            }
+
+            // ---------- 3D Globe Implementation ----------
+            function initializeGlobe() {
+                const globeCanvas = document.getElementById('climateGlobe');
+                const container = document.getElementById('globe-scene');
+                
+                if (!globeCanvas || !container) return;
+
+                // Scene setup
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ 
+                    canvas: globeCanvas,
+                    antialias: true,
+                    alpha: true
+                });
+
+                // Handle texture errors
+                const handleTextureError = (error) => {
+                    console.error('Texture loading error:', error);
+                    material.map = new THREE.TextureLoader().load('img/fallback-texture.jpg');
+                };
+
+                // Globe material
+                const textureLoader = new THREE.TextureLoader();
+                const material = new THREE.MeshPhongMaterial({
+                    map: textureLoader.load('img/earth-texture.jpg', undefined, handleTextureError),
+                    specularMap: textureLoader.load('img/earth-specular.jpg', undefined, handleTextureError),
+                    specular: new THREE.Color('grey')
+                });
+
+                // Create sphere
+                const earth = new THREE.Mesh(
+                    new THREE.SphereGeometry(4, 32, 32),
+                    material
+                );
+                scene.add(earth);
+
+                // Lighting
+                scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+                const pointLight = new THREE.PointLight(0xffffff, 0.9);
+                pointLight.position.set(15, 20, 15);
+                scene.add(pointLight);
+
+                // Animation
+                camera.position.z = 10;
+                function animate() {
+                    requestAnimationFrame(animate);
+                    earth.rotation.y += 0.003;
+                    renderer.render(scene, camera);
+                }
+                animate();
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    camera.aspect = container.clientWidth / container.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                });
+            }
+            initializeGlobe();
+
+            // ---------- Climate Chart ----------
+            async function initializeChart() {
+                const ctx = document.getElementById('climateChart')?.getContext('2d');
+                if (!ctx) return;
+
+                try {
+                    const data = await fetchClimateData();
+                    if (!data) throw new Error('No chart data available');
+
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: data.daily.time.map(date => date.substring(0, 7)), // Show YYYY-MM
+                            datasets: [{
+                                label: 'Temperature (°C)',
+                                data: data.daily.temperature_2m_mean,
+                                borderColor: '#ff6b6b',
+                                fill: true,
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { labels: { color: '#333' } },
+                                tooltip: { mode: 'index' }
+                            },
+                            scales: {
+                                x: { ticks: { maxTicksLimit: 10 } }
+                            }
+                        }
+                    });
+                } catch (error) {
+                    ctx.canvas.parentElement.innerHTML = `<p>Chart Error: ${error.message}</p>`;
+                }
+            }
+            initializeChart();
+
+            // ---------- Enhanced Chat System ----------
+            window.sendClimateQuery = async function() {
+                const input = document.getElementById('climateQuery');
+                const chat = document.getElementById('climateChat');
+                const message = input.value.trim();
+                if (!message) return;
+
+                // Disable input during processing
+                input.disabled = true;
+                
+                // Add user message
+                const userMsg = document.createElement('div');
+                userMsg.className = 'message user';
+                userMsg.textContent = message;
+                chat.appendChild(userMsg);
+
+                // Add thinking indicator
+                const thinkingMsg = document.createElement('div');
+                thinkingMsg.className = 'message bot typing';
+                thinkingMsg.textContent = 'Analyzing...';
+                chat.appendChild(thinkingMsg);
+                chat.scrollTop = chat.scrollHeight;
+
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=${API_KEY}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{
+                                    text: `As a climate science expert, answer this question: ${message}. 
+                                           Use verified data sources and maintain a professional tone.`
+                                }]
+                            }]
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error?.message || 'API request failed');
+                    }
+
+                    const data = await response.json();
+                    const botResponse = data.candidates[0].content.parts[0].text;
+                    
+                    thinkingMsg.textContent = botResponse;
+                    thinkingMsg.classList.remove('typing');
+                } catch (error) {
+                    thinkingMsg.textContent = `Error: ${error.message}`;
+                    thinkingMsg.classList.remove('typing');
+                    console.error("Chat error:", error);
+                } finally {
+                    input.disabled = false;
+                    input.focus();
+                    chat.scrollTop = chat.scrollHeight;
+                }
             }
         });
-    }
-    
+        // Chatbot Logic
+        async function sendClimateQuery() {
+            const input = document.getElementById('climateQuery');
+            const message = input.value.trim();
+            if (!message) return;
 
-// Load 'scilib.json' at the top of the file
-const scilibPath = path.resolve('./js/scilib.json');
-let scilibData = {};
+            const chat = document.getElementById('climateChat');
 
-try {
-    const scilibRaw = fs.readFileSync(scilibPath, 'utf-8');
-    scilibData = JSON.parse(scilibRaw);
-    console.log("Loaded scilib.json successfully.");
-} catch (error) {
-    console.error("Error loading scilib.json:", error);
-}
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.textContent = message;
+            chat.appendChild(userMsg);
 
-// --- Modify the /api/climate-ai API Endpoint ---
-else if (pathname === '/api/climate-ai' && method === 'POST') {
-    let body = '';
-    req.on('data', chunk => { body += chunk.toString(); });
-    req.on('end', () => {
-        try {
-            const requestData = JSON.parse(body);
-            const userQuery = requestData.query;
-            const userChoice = requestData.choice;
-            console.log("Received chatbot query:", userQuery);
-            console.log("User's elective choice:", userChoice);
+            // Get bot response
+            const response = await fetch('/api/climate-ai', {
+                method: 'POST',
+                body: JSON.stringify({ query: message })
+            });
+            const data = await response.json();
 
-            // --- Mock AI Response Logic ---
-            let botAnswer = "I am a climate expert. I received your query: '" + userQuery + "'";
-            let electiveChoices = [];
+            // Add bot message
+            const botMsg = document.createElement('div');
+            botMsg.className = 'message bot';
+            //Sanitize the bot output
+            const botText = document.createElement('p');
+            botText.textContent = data.answer;
+            botMsg.appendChild(botText);
 
-            // Provide choices from scilib.json
-            if (Object.keys(scilibData).length > 0) {
-                electiveChoices = Object.keys(scilibData).map(key => ({
-                    choice: key,
-                    description: scilibData[key].description || `Description for ${key}`
-                }));
-            }
+            chat.appendChild(botMsg);
 
-            // Customize response based on userQuery
-            if (userQuery.toLowerCase().includes("temperature")) {
-                botAnswer = "Based on current trends, global temperatures are rising. Specific data can be found in recent climate reports.";
-            } else if (userQuery.toLowerCase().includes("co2") || userQuery.toLowerCase().includes("carbon")) {
-                botAnswer = "Atmospheric CO2 levels are currently around 420ppm, significantly higher than pre-industrial levels and a major driver of warming.";
-            } else if (userQuery.toLowerCase().includes("sea level")) {
-                botAnswer = "Sea levels are rising due to thermal expansion of ocean water and melting ice sheets. Projections vary, but the trend is accelerating.";
-            } else if (userQuery.toLowerCase().includes("amazon")) {
-                botAnswer = "The Amazon rainforest is experiencing significant deforestation, impacting biodiversity and the global carbon cycle.";
-            } else if (userQuery.toLowerCase().includes("arctic")) {
-                botAnswer = "The Arctic is warming faster than the global average, leading to rapid loss of sea ice and permafrost thaw.";
-            }
-
-            // Handle advanced choices based on the user's selection
-            let advancedResponse = {};
-            if (userChoice && scilibData[userChoice]) {
-                advancedResponse = scilibData[userChoice];
-                botAnswer += ` You selected "${userChoice}". Here is the advanced data: ${JSON.stringify(advancedResponse)}`;
-            }
-
-            // Prepare response
-            const responseData = {
-                answer: botAnswer,
-                choices: electiveChoices // Provide elective choices to the user
-            };
-
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify(responseData));
-            console.log("Sent chatbot response to client.");
-
-        } catch (error) {
-            console.error("Error processing /api/climate-ai request:", error);
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'Invalid JSON data for chatbot query' }));
+            input.value = '';
+            chat.scrollTop = chat.scrollHeight;
         }
-    });
-}
-
-// --- Create and Start Server ---
-const server = http.createServer(requestHandler);
-const PORT = 8001;
-server.listen(PORT, (err) => {
-    if (err) { return console.error('Error starting server:', err); }
-    const serverUrl = `http://localhost:${PORT}`;
-    console.log(`Server running at ${serverUrl}`);
-    console.log(`Serving API at POST ${serverUrl}/api/analyze`);
-    console.log(`Serving API at POST ${serverUrl}/api/climate-ai`); // Log new endpoint
-    // Open the default demo page
-    open(`${serverUrl}/demo.html`).catch(err => {
-        console.error('Error opening browser:', err);
-    });
-});
+    
