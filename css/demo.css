@@ -10,7 +10,7 @@ body {
     background: #0a0f24;
     color: #fff;
     line-height: 1.6;
-    margin: 0; /* Reset default body margin */
+    margin: 0;
 }
 
 /* Header Styles */
@@ -24,21 +24,21 @@ header {
     backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Distribute space evenly */
-    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
-header .ra-logo, header .logo {
+.logo {
     height: 50px;
-    margin-right: 1rem; /* Space between logo and nav */
-    display: block; /* Ensure proper spacing */
+    margin-right: 1rem;
+    display: block;
 }
 
 nav {
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Align to the right */
-    flex-grow: 1; /* Allow nav to take up remaining space */
+    justify-content: flex-end;
+    flex-grow: 1;
     gap: 2rem;
 }
 
@@ -46,200 +46,140 @@ nav a {
     color: white;
     text-decoration: none;
     padding: 0.5rem 1rem;
-    margin: 0 0.5rem;
     border-radius: 0.3rem;
-    transition: color 0.3s ease, background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 nav a:hover {
-    color: var(--quantum-purple, #8577ef);
+    color: #8577ef;
     background-color: #38bdf8;
 }
 
-/* Hero Section */
-.hero {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 4rem 2rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, rgba(12, 15, 30, 0.9), rgba(32, 25, 60, 0.7));
-    z-index: -1;
-}
-
-.hero-content {
-    max-width: 800px;
-    z-index: 1;
-}
-
-.hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(90deg, #6c5ce7, #48dbfb);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    color: #ccd6f6;
-}
-
-.cta-button {
-    background: #6c5ce7;
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: transform 0.3s ease;
-    display: inline-block;
-}
-
-.cta-button:hover {
-    transform: translateY(-3px);
-    background: #8577ef;
-}
-
-/* Features Section */
-.features {
+/* Data Visualization Section */
+.data-container {
     padding: 4rem 2rem;
     background: #0e1225;
 }
 
-.features-grid {
+.dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
-.feature-card {
+/* Info Cards */
+.info-card {
     background: #1a1f35;
     padding: 2rem;
     border-radius: 15px;
-    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
-.feature-card:hover {
-    transform: translateY(-10px);
+.info-card:hover {
+    transform: translateY(-5px);
 }
 
-.feature-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+.card-header {
+    border-bottom: 1px solid #2d3251;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
     color: #6c5ce7;
+    margin-bottom: 0.5rem;
 }
 
-/* Footer */
-footer {
+.card-subtitle {
+    color: #ccd6f6;
+    font-size: 0.9rem;
+}
+
+.card-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #e2e8f0;
+}
+
+/* Graph Containers */
+.graph-container {
     background: #1a1f35;
-    padding: 2rem;
-    text-align: center;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
+.graph-title {
+    font-size: 1.3rem;
+    color: #48dbfb;
+    margin-bottom: 1.5rem;
 }
 
-.footer-links {
+/* Chatbot Text Formatting */
+.message.bot {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.message.bot strong {
+    color: #48dbfb;
+    font-weight: 500;
+}
+
+.message.bot em {
+    color: #8577ef;
+    font-style: italic;
+}
+
+.message.bot ul {
+    padding-left: 1.5rem;
     margin: 1rem 0;
 }
 
-.footer-links a {
-    color: #ccd6f6;
-    text-decoration: none;
-    margin: 0 1rem;
+.message.bot li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
 }
 
-/* Chatbot Section */
-.climate-chatbot {
-    background: #1e293b;
-    padding: 1rem;
-    border-radius: 1rem;
-    color: #ccd6f6;
-    max-width: 800px;
-    margin: 2rem auto;
-}
-
-.messages {
-    max-height: 400px;
-    overflow-y: auto;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 1rem;
-    background: #0a101f;
-    color: #fff;
-}
-
-.message {
-    padding: 0.8rem;
-    margin: 0.5rem 0;
-    border-radius: 0.5rem;
-    max-width: 80%;
-}
-
-.message.user {
-    background: #38bdf8;
-    margin-left: auto;
-    color: #0f172a;
-}
-
-.message.bot {
-    background: #334155;
-}
-
-.message p {
-    margin: 0;
-}
-
-button.cta-button {
-    background: #6c5ce7;
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-button.cta-button:hover {
-    transform: translateY(-3px);
-    background: #8577ef;
-}
-/* Markdown Code Style - Keep these in case you want to display code snippets */
 .message.bot code {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
     color: #48dbfb;
     padding: 0.2rem 0.4rem;
     border-radius: 0.3rem;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.9rem;
+    font-family: 'Courier New', monospace;
 }
 
 .message.bot pre {
-    background: rgba(255, 255, 255, 0.1);
-    color: #48dbfb;
-    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
     border-radius: 0.5rem;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.9rem;
+    margin: 1rem 0;
     overflow-x: auto;
+}
+
+.message.bot pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    nav {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
 }
