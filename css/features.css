@@ -3,7 +3,6 @@
    ========================================= */
 body {
     font-family: 'Poppins', sans-serif;
-    /* Using the background from the more specific header's theme */
     background: #0f172a; /* Dark blue-gray background */
     color: #f8fafc; /* Light text color */
     margin: 0;
@@ -17,7 +16,6 @@ body {
    Header Styles
    ========================================= */
 header {
-    /* Using the second, more detailed header definition */
     background: rgba(26, 31, 53, 0.95); /* Semi-transparent dark background */
     padding: 1rem; /* Padding inside the header */
     position: fixed; /* Fixed at the top */
@@ -30,9 +28,7 @@ header {
     align-items: center;
     justify-content: space-between; /* Space out logo and nav */
     flex-wrap: wrap; /* Allow items to wrap if needed */
-    /* Explicit height helps with layout and body padding-top */
-    /* Adjust based on content, e.g., logo height + padding */
-    height: 70px;
+    height: 70px; /* Explicit height */
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
@@ -61,7 +57,7 @@ nav a {
     font-weight: 500;
     transition: color 0.3s ease; /* Smooth color transition */
     padding: 0.5rem; /* Padding for clickable area */
-    display: inline-block; /* Needed for padding to apply correctly */
+    display: inline-block; /* Needed for padding */
 }
 
 /* Interactive States */
@@ -85,35 +81,191 @@ nav a:focus {
    Component Styles
    ========================================= */
 
-/* Chat History */
+/* --- Chatbot Styles --- */
+.chatbot-container {
+    background: #1e293b;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    height: 500px; /* Consider using min-height/max-height or flex */
+    display: flex;
+    flex-direction: column;
+    margin: 2rem; /* Example margin */
+}
+
 .chat-history {
+    /* Merged rules */
     position: relative; /* For potential stacking context */
-    z-index: 1; /* Ensure it's above default background, below header/modals */
+    z-index: 1; /* Above container background */
+    flex: 1; /* Take available vertical space */
+    overflow-y: auto; /* Enable scrolling for messages */
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #0f172a; /* Match body background */
+    border-radius: 0.5rem;
 }
 
-/* Chart Container */
-.chart-container {
-    min-height: 300px; /* Ensure chart has space */
-    /* Add other necessary styles like width, display, etc. */
+.message {
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    max-width: 80%;
+    line-height: 1.4; /* Improve readability */
 }
 
-/* Chat Input Button */
+.user-message {
+    background: #38bdf8; /* User message background */
+    color: #0f172a; /* Dark text on light background */
+    margin-left: auto; /* Align to the right */
+}
+
+.bot-message {
+    background: #334155; /* Bot message background */
+    color: #f8fafc; /* Light text */
+    margin-right: auto; /* Align to the left */
+}
+
+.chat-input {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto; /* Push input to the bottom if container uses flex */
+}
+
+.chat-input input {
+    flex: 1; /* Take available horizontal space */
+    padding: 0.8rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: #0f172a; /* Match history background */
+    color: #f8fafc; /* Light text */
+    font-size: 1rem; /* Ensure readable font size */
+}
+.chat-input input:focus {
+     outline: 2px solid #38bdf8; /* Focus outline */
+     outline-offset: 2px;
+}
+
+
 .chat-input button {
-    position: relative; /* For potential pseudo-elements or positioning */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Example transitions */
-    /* Add base button styles (background, color, padding, border) */
+    /* Merged rules */
+    position: relative; /* For potential pseudo-elements */
+    background: #38bdf8;
+    color: #0f172a; /* Dark text on light button */
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Updated transition */
+    font-weight: 500;
+}
+
+.chat-input button:hover {
+    background: #0ea5e9; /* Slightly different blue for hover */
+}
+.chat-input button:active {
+    transform: scale(0.98); /* Add slight press effect */
 }
 
 /* Button Accessibility */
 .chat-input button:focus {
-    outline: 2px solid #38bdf8; /* Custom focus outline */
-    outline-offset: 2px; /* Space between button and outline */
+    outline: 2px solid #f8fafc; /* Use light color for focus ring on dark button */
+    outline-offset: 2px;
 }
 
-/* Progress Circle */
+
+/* --- Feature/Card Styles --- */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem; /* Padding around the grid */
+}
+
+.feature-card {
+    background: #1e293b; /* Card background */
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.feature-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); /* Enhance shadow */
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #38bdf8; /* Icon color */
+}
+
+/* --- Dashboard/Layout Styles --- */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.chart-container {
+    /* Merged rules */
+    min-height: 300px; /* Minimum height */
+    background: #1e293b; /* Background for chart area */
+    border-radius: 1rem;
+    padding: 1.5rem;
+    /* Add display: flex or block as needed for chart library */
+}
+
+/* --- Sustainability/Progress Styles --- */
+.sustainability-panel {
+    background: #1e293b;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem; /* Example margin */
+}
+
+.progress-tracker {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 2rem;
+    margin-top: 1.5rem;
+    justify-content: center; /* Center items if they wrap */
+}
+
+.progress-item {
+    flex: 1; /* Allow items to grow/shrink */
+    min-width: 120px; /* Minimum width before wrapping */
+    text-align: center;
+}
+
 .progress-circle {
-    animation: progress 2s linear infinite;
-    /* Add base styles for the circle (width, height, border, etc.) */
+    /* Merged rules */
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    /* Example gradient, adjust percentage (75%) as needed */
+    background: conic-gradient(#38bdf8 0% 75%, #334155 75% 100%);
+    margin: 0 auto 1rem; /* Center horizontally, add bottom margin */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem; /* Text size inside circle */
+    color: #f8fafc; /* Text color inside */
+    animation: progress 2s linear infinite; /* Apply defined animation */
+}
+
+
+/* =========================================
+   Footer Styles
+   ========================================= */
+footer {
+    background: #1e293b; /* Footer background */
+    padding: 2rem;
+    margin-top: 3rem; /* Space above footer */
+    text-align: center;
+    color: #94a3b8; /* Muted text color */
+    font-size: 0.9rem;
 }
 
 /* =========================================
@@ -135,12 +287,11 @@ nav a:focus {
     }
 
     /* Styles for the mobile navigation container WHEN ACTIVE */
-    /* Assumes a parent 'nav' element has the '.active' class added via JS */
     nav.active ul {
         display: flex; /* Show the list */
         flex-direction: column; /* Stack items vertically */
         position: fixed; /* Fixed position relative to viewport */
-        top: 70px; /* Position below the fixed header (adjust if header height changes) */
+        top: 70px; /* Position below the fixed header */
         left: 0;
         right: 0; /* Full width */
         background: #1e293b; /* Mobile menu background */
@@ -149,8 +300,7 @@ nav a:focus {
         z-index: 999; /* Below header but above content */
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
         border-top: 1px solid rgba(248, 250, 252, 0.1); /* Optional top border */
-        /* Add height/max-height and overflow if list can be long */
-        max-height: calc(100vh - 70px); /* Max height calculation */
+        max-height: calc(100vh - 70px); /* Max height */
         overflow-y: auto; /* Allow scrolling */
     }
 
@@ -165,6 +315,12 @@ nav a:focus {
     nav.active ul li:last-child a {
         border-bottom: none; /* Remove border from last item */
     }
+
+    /* Adjust grid/component padding/layout for mobile if needed */
+    .feature-grid, .dashboard, .sustainability-panel, .chatbot-container {
+        padding: 1.5rem;
+        margin: 1rem; /* Reduce margin on mobile */
+    }
 }
 
 /* =========================================
@@ -178,3 +334,4 @@ nav a:focus {
         transform: rotate(360deg);
     }
 }
+
