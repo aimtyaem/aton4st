@@ -1,4 +1,6 @@
-/* Base Styles */
+/* =========================================
+   Base Styles
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -10,13 +12,16 @@ body {
     background: #0a0f24;
     color: #fff;
     line-height: 1.6;
-    padding-top: 70px; /* Add space for fixed header */
+    /* Default padding top to account for fixed header height */
+    padding-top: 70px;
 }
 
-/* Header Styles */
+/* =========================================
+   Header Styles (Default / Desktop)
+   ========================================= */
 header {
     background: rgba(26, 31, 53, 0.95);
-    padding: 0 1rem;
+    padding: 0 1rem; /* Adjusted padding, 1rem vertical might be too much */
     position: fixed;
     width: 100%;
     top: 0;
@@ -24,88 +29,138 @@ header {
     backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Better spacing */
-    gap: 2rem;
-    height: 70px; /* Fixed header height */
+    justify-content: space-between; /* Distribute space */
+    flex-wrap: wrap; /* Allow items to wrap if needed */
+    height: 70px; /* Explicitly set height matching body padding-top */
+    transition: height 0.3s ease, padding 0.3s ease; /* Smooth transition for mobile */
 }
 
-/* Fixed logo selector */
-.header-logo {
-    width: 100px;
-    height: auto;
+header .ra-logo, header .logo {
+    height: 50px; /* Adjust as needed, ensure it fits within header height */
+    margin-right: 1rem; /* Space between logo and nav */
+    display: block; /* Ensure proper spacing */
+    flex-shrink: 0; /* Prevent logo from shrinking */
 }
 
-.ra-logo {
-    height: 50px;
-    width: auto; /* Maintain aspect ratio */
-}
-
-/* Navigation Styles */
+/* =========================================
+   Navigation Styles (Default / Desktop)
+   ========================================= */
 nav ul {
     list-style-type: none;
-    display: flex;
+    display: flex; /* Horizontal layout */
     gap: 1.5rem;
     padding: 0;
-    margin: 0;
+    margin: 0; /* Reset default ul margin */
+    align-items: center; /* Vertically align nav items with logo */
 }
 
-/* Mobile Navigation */
-@media (max-width: 768px) {
-    body {
-        padding-top: 60px; /* Adjust for smaller header */
-    }
-
-    header {
-        height: 60px;
-        padding: 0 1rem;
-    }
-
-    nav {
-        position: fixed;
-        top: 60px;
-        left: -100%;
-        width: 100%;
-        background: rgba(26, 31, 53, 0.95);
-        transition: left 0.3s ease;
-    }
-
-    nav.active {
-        left: 0;
-    }
-
-    nav ul {
-        flex-direction: column;
-        gap: 0;
-        padding: 1rem;
-    }
-
-    nav a {
-        display: block;
-        width: 100%;
-        padding: 1rem;
-    }
-
-    /* Add hamburger menu icon (needs HTML button) */
-    .menu-toggle {
-        display: block;
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.5rem;
-        cursor: pointer;
-    }
+/* Add base link styling if necessary */
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem; /* Example padding */
+    display: inline-block;
 }
 
-/* Hero Section Fix */
+/* Hide mobile menu toggle on larger screens */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem; /* Adjust size as needed */
+    cursor: pointer;
+    padding: 0.5rem; /* Add some padding for easier clicking */
+}
+
+/* =========================================
+   Hero Section
+   ========================================= */
 .hero {
-    min-height: calc(100vh - 70px); /* Account for header */
+    /* Calculate height based on default header */
+    min-height: calc(100vh - 70px);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2rem;
     position: relative;
     overflow: hidden;
-    margin-top: -70px; /* Counteract body padding */
+    /* margin-top: -70px; /* This negative margin is often unnecessary
+                           if body padding-top is used correctly.
+                           It might cause issues if the header height changes.
+                           Consider removing if layout works without it. */
 }
 
-/* ... rest of your existing styles ... */
+/* =========================================
+   Mobile Styles & Overrides (max-width: 768px)
+   ========================================= */
+@media (max-width: 768px) {
+    body {
+        /* Adjust body padding for smaller mobile header */
+        padding-top: 60px;
+    }
+
+    header {
+        /* Adjust header height for mobile */
+        height: 60px;
+        padding: 0 1rem; /* Ensure padding is suitable */
+    }
+
+    /* Adjust logo size for smaller header if needed */
+    header .ra-logo, header .logo {
+        height: 40px; /* Example smaller size */
+    }
+
+    /* Mobile Navigation Container */
+    nav {
+        position: fixed;
+        top: 60px; /* Position below the mobile header */
+        left: -100%; /* Start off-screen */
+        width: 100%;
+        height: calc(100vh - 60px); /* Full height minus header */
+        background: rgba(26, 31, 53, 0.95); /* Same as header or slightly different */
+        transition: left 0.3s ease;
+        z-index: 999; /* Below header but above content */
+        overflow-y: auto; /* Allow scrolling if nav items exceed screen height */
+    }
+
+    /* Class added via JS to show the menu */
+    nav.active {
+        left: 0; /* Slide menu into view */
+    }
+
+    /* Mobile Navigation List */
+    nav ul {
+        flex-direction: column; /* Stack items vertically */
+        gap: 0; /* Remove gap, padding on 'a' will handle spacing */
+        padding: 1rem 0; /* Add some vertical padding */
+        align-items: stretch; /* Stretch items to full width */
+    }
+
+    /* Mobile Navigation Links */
+    nav a {
+        display: block; /* Make links full width */
+        width: 100%;
+        padding: 1rem 1.5rem; /* Generous padding for touch targets */
+        text-align: center; /* Center text or left-align as preferred */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Optional separator */
+    }
+     nav ul li:last-child a {
+         border-bottom: none; /* Remove border from last item */
+    }
+
+    /* Show hamburger menu icon */
+    .menu-toggle {
+        display: block; /* Show the toggle button on mobile */
+    }
+
+    /* Adjust Hero section for mobile header */
+    .hero {
+         min-height: calc(100vh - 60px); /* Account for smaller mobile header */
+         /* margin-top: -60px; /* Adjust negative margin if used */
+    }
+}
+
+/* =========================================
+   ... rest of your existing styles ...
+   ========================================= */
