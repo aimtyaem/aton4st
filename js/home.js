@@ -1,3 +1,6 @@
+document.querySelector('.menu-toggle').addEventListener('click', () => {
+    document.querySelector('nav').classList.toggle('active');
+});
 // Particles Background Animation
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
