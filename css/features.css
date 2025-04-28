@@ -1,103 +1,180 @@
-/* Base Theme */
+/* =========================================
+   Base Theme & Body
+   ========================================= */
 body {
     font-family: 'Poppins', sans-serif;
-    background: #0f172a;
-    color: #f8fafc;
+    /* Using the background from the more specific header's theme */
+    background: #0f172a; /* Dark blue-gray background */
+    color: #f8fafc; /* Light text color */
     margin: 0;
     padding: 0;
+    /* Add padding-top if header is fixed to prevent content overlap */
+    /* Adjust 70px based on actual fixed header height */
+    padding-top: 70px;
 }
 
+/* =========================================
+   Header Styles
+   ========================================= */
 header {
-    background: #1e293b;
-    padding: 1rem 2rem; /* Fixed typo (removed 'type') */
+    /* Using the second, more detailed header definition */
+    background: rgba(26, 31, 53, 0.95); /* Semi-transparent dark background */
+    padding: 1rem; /* Padding inside the header */
+    position: fixed; /* Fixed at the top */
+    width: 100%;
+    top: 0;
+    left: 0; /* Added for completeness with position: fixed */
+    z-index: 1000; /* Ensure header stays on top */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    justify-content: space-between; /* Space out logo and nav */
+    flex-wrap: wrap; /* Allow items to wrap if needed */
+    /* Explicit height helps with layout and body padding-top */
+    /* Adjust based on content, e.g., logo height + padding */
+    height: 70px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-.header-logo { /* Added missing dot */
-    width: 100px; 
-    height: auto;
+header .ra-logo, header .logo {
+    height: 50px; /* Logo height */
+    margin-right: 1rem; /* Space after logo */
+    display: block;
+    flex-shrink: 0; /* Prevent logo from shrinking */
 }
 
+/* =========================================
+   Navigation Styles (Desktop/Base)
+   ========================================= */
 nav ul {
     list-style: none;
-    display: flex;
-    gap: 2rem;
+    display: flex; /* Horizontal layout for desktop */
+    gap: 2rem; /* Space between nav items */
     margin: 0;
     padding: 0;
+    align-items: center; /* Align items vertically */
 }
 
-/* Added mobile responsiveness */
+nav a {
+    color: #94a3b8; /* Muted text color for links */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease; /* Smooth color transition */
+    padding: 0.5rem; /* Padding for clickable area */
+    display: inline-block; /* Needed for padding to apply correctly */
+}
+
+/* Interactive States */
+nav a:hover,
+nav a:focus {
+    color: #38bdf8; /* Bright color on hover/focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Hide mobile menu toggle by default */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #94a3b8; /* Match nav link color */
+    font-size: 1.5rem; /* Icon size */
+    cursor: pointer;
+}
+
+/* =========================================
+   Component Styles
+   ========================================= */
+
+/* Chat History */
+.chat-history {
+    position: relative; /* For potential stacking context */
+    z-index: 1; /* Ensure it's above default background, below header/modals */
+}
+
+/* Chart Container */
+.chart-container {
+    min-height: 300px; /* Ensure chart has space */
+    /* Add other necessary styles like width, display, etc. */
+}
+
+/* Chat Input Button */
+.chat-input button {
+    position: relative; /* For potential pseudo-elements or positioning */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Example transitions */
+    /* Add base button styles (background, color, padding, border) */
+}
+
+/* Button Accessibility */
+.chat-input button:focus {
+    outline: 2px solid #38bdf8; /* Custom focus outline */
+    outline-offset: 2px; /* Space between button and outline */
+}
+
+/* Progress Circle */
+.progress-circle {
+    animation: progress 2s linear infinite;
+    /* Add base styles for the circle (width, height, border, etc.) */
+}
+
+/* =========================================
+   Mobile Navigation & Overrides (max-width: 768px)
+   ========================================= */
 @media (max-width: 768px) {
+    /* Adjust body padding if header height changes on mobile */
+    /* body { padding-top: 60px; } */
+    /* header { height: 60px; } */
+
+    /* Hide desktop nav list */
     nav ul {
         display: none;
     }
-    
+
+    /* Show mobile menu toggle button */
     .menu-toggle {
-        display: block;
-        background: none;
-        border: none;
-        color: #94a3b8;
-        font-size: 1.5rem;
-        cursor: pointer;
+        display: block; /* Show the button */
     }
-    
+
+    /* Styles for the mobile navigation container WHEN ACTIVE */
+    /* Assumes a parent 'nav' element has the '.active' class added via JS */
     nav.active ul {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
+        display: flex; /* Show the list */
+        flex-direction: column; /* Stack items vertically */
+        position: fixed; /* Fixed position relative to viewport */
+        top: 70px; /* Position below the fixed header (adjust if header height changes) */
         left: 0;
-        right: 0;
-        background: #1e293b;
-        padding: 1rem;
+        right: 0; /* Full width */
+        background: #1e293b; /* Mobile menu background */
+        padding: 1rem 0; /* Vertical padding */
+        margin: 0; /* Reset margin */
+        z-index: 999; /* Below header but above content */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+        border-top: 1px solid rgba(248, 250, 252, 0.1); /* Optional top border */
+        /* Add height/max-height and overflow if list can be long */
+        max-height: calc(100vh - 70px); /* Max height calculation */
+        overflow-y: auto; /* Allow scrolling */
+    }
+
+    /* Style individual links in active mobile menu */
+    nav.active ul a {
+        padding: 1rem 1.5rem; /* Larger padding for touch */
+        text-align: center; /* Center text */
+        width: 100%; /* Ensure full width */
+        border-bottom: 1px solid rgba(248, 250, 252, 0.1); /* Separator */
+    }
+
+    nav.active ul li:last-child a {
+        border-bottom: none; /* Remove border from last item */
     }
 }
 
-/* Added focus states for accessibility */
-nav a {
-    color: #94a3b8;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    padding: 0.5rem;
-}
-
-nav a:hover,
-nav a:focus {
-    color: #38bdf8;
-    outline: none;
-}
-
-/* Added proper z-index for overlapping elements */
-.chat-history {
-    position: relative;
-    z-index: 1;
-}
-
-/* Fixed chart container height */
-.chart-container {
-    min-height: 300px;
-}
-
-/* Improved button accessibility */
-.chat-input button {
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.chat-input button:focus {
-    outline: 2px solid #fff;
-}
-
-/* Added animation for progress circle */
+/* =========================================
+   Animations
+   ========================================= */
 @keyframes progress {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.progress-circle {
-    animation: progress 2s linear infinite;
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
