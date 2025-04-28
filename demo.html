@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aton4ST Demo</title>
+    <!-- Link to demo.css -->
     <link rel="stylesheet" href="css/demo.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-   
 </head>
 <body>
+    <!-- Header Section -->
     <header>
         <img src="img/aton4stlogo.jpg" alt="Aton4ST Logo" class="logo">
         <nav>
@@ -21,51 +22,65 @@
         </nav>
     </header>
 
-    <div class="demo-container">
-        <section id="demo-video">
-            <h2>Aton4ST Platform Overview</h2>
+    <!-- Demo Container -->
+    <div class="data-container">
+        <!-- Demo Video Section -->
+        <section id="demo-video" class="info-card">
+            <h2 class="card-title">Aton4ST Platform Overview</h2>
             <div class="video-embed">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Aton4ST Demo Placeholder" frameborder="0"></iframe>
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="Aton4ST Demo Placeholder" frameborder="0"></iframe>
             </div>
+        </section>
 
-            <h3>Climate Analysis Engine</h3>
+        <!-- Climate Analysis Section -->
+        <section class="info-card">
+            <h3 class="card-title">Climate Analysis Engine</h3>
             <div class="climate-analysis-trigger">
                 <h3>Run Server-Side Analysis</h3>
                 <button onclick="runClimateAnalysis()">Analyze Mock Dataset</button>
                 <h4>Analysis Results:</h4>
-                <pre id="analysis-results">Click button to run analysis...</pre>
+                <pre id="analysis-results" class="message bot">Click button to run analysis...</pre>
             </div>
         </section>
 
-        <div class="interactive-demo">
-            <div class="climate-dashboard">
-                <h3>Real-time Climate Metrics</h3>
+        <!-- Interactive Demo Section -->
+        <div class="dashboard-grid">
+            <!-- Climate Dashboard -->
+            <div class="graph-container">
+                <h3 class="graph-title">Real-time Climate Metrics</h3>
                 <div class="chart-container">
                     <canvas id="climateChart"></canvas>
                 </div>
-                <div class="climate-chatbot">
-                    <h4>Climate Data Assistant</h4>
-                    <div class="chat-history" id="climateChat">
-                        <div class="message bot">Ask me about climate trends or Earth observation data!</div>
-                    </div>
-                    <div class="chat-input">
-                        <input type="text" id="climateQuery" placeholder="Type your climate question..." 
-                               onkeydown="if(event.key === 'Enter') sendClimateQuery()">
-                        <button onclick="sendClimateQuery()">Ask</button>
-                    </div>
+            </div>
+
+            <!-- Climate Chatbot -->
+            <div class="graph-container">
+                <h4 class="graph-title">Climate Data Assistant</h4>
+                <div class="chat-history" id="climateChat">
+                    <div class="message bot"><strong>Bot:</strong> Ask me about climate trends or Earth observation data!</div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="climateQuery" placeholder="Type your climate question..."
+                           onkeydown="if(event.key === 'Enter') sendClimateQuery()">
+                    <button onclick="sendClimateQuery()">Ask</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="globe-scene" style="width: 100%; height: 500px;">
+    <!-- Globe Scene -->
+    <div id="globe-scene" class="graph-container">
         <canvas id="climateGlobe"></canvas>
     </div>
 
+    <!-- Footer Section -->
     <footer>
         <p>© 2025 Aton4ST. Democratizing Space Science.</p>
         <a href="#">License</a> | <a href="#">Privacy</a>
     </footer>
+
+    <!-- Demo Script -->
     <script src="./js/demo.js"></script>
 </body>
 </html>
