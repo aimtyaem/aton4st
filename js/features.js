@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Fallback to API
         try {
-            const response = await fetch('https://api-inference.huggingface.co/models/ibm-granite/granite-3.3-8b-base', {
+            const response = await fetch('https://api-inference.huggingface.co/models/ibm-granite/granite-3.3-2b-base', {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer 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`,
