@@ -1,3 +1,7 @@
+document.querySelector('.menu-toggle').addEventListener('click', () => {
+    document.querySelector('nav').classList.toggle('active');
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     // Chart initialization function
     const createChart = (ctx, labels, data, label) => {
