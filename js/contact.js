@@ -25,7 +25,7 @@ function handleSubmit(event) {
 }
 
 function createGitHubIssue(formData) {
-    const repo = 'aimtyaem/RA-Space-exploration';
+    const repo = 'aimtyaem/aton4st';
     const url = `https://api.github.com/repos/${repo}/issues`;
     const token = 'YOUR_PERSONAL_ACCESS_TOKEN'; // Replace with a GitHub personal access token
 
