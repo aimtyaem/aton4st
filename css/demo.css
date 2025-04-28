@@ -167,13 +167,25 @@ footer {
     text-decoration: none;
     margin: 0 1rem;
 }
-/* Chatbot Messages */
+
+/* Chatbot Section */
 .climate-chatbot {
     background: #1e293b;
     padding: 1rem;
     border-radius: 1rem;
-    grid-column: span 2;
     color: #ccd6f6;
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.messages {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: #0a101f;
+    color: #fff;
 }
 
 .message {
@@ -193,13 +205,24 @@ footer {
     background: #334155;
 }
 
-/* Bot message text style */
-.message.bot p {
-    color: #ccd6f6;
-    font-size: 1rem; /* Adjust as needed */
-    line-height: 1.4; /* Adjust as needed */
+.message p {
+    margin: 0;
 }
 
+button.cta-button {
+    background: #6c5ce7;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button.cta-button:hover {
+    transform: translateY(-3px);
+    background: #8577ef;
+}
 /* Markdown Code Style - Keep these in case you want to display code snippets */
 .message.bot code {
     display: inline-block;
