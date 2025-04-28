@@ -26,7 +26,10 @@ header {
     align-items: center;
     gap: 2rem;
 }
-
+header-logo {
+    width: 100px; 
+    height: auto;
+}
 .ra-logo {
     height: 50px;
 }
