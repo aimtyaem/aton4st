@@ -1,33 +1,44 @@
 #!/bin/bash
 
-# Ensure the script stops if any command fails
-set -e
+# Define deployment directory
+DEPLOY_DIR="/var/www/html/demo"  # Change this to your desired deployment directory
+HTML_FILE="demo.html"
+JS_DIR="js"
 
-# Specify the branch to start
-BRANCH="master"
-
-# Log the start of the deployment process
-echo "Starting deployment process on branch: $BRANCH"
-
-# Checkout the branch and ensure it's up to date
-git checkout $BRANCH
-git pull origin $BRANCH
-
-# Install dependencies
-echo "Installing dependencies..."
-npm install
-
-# Build the application (if applicable)
-if [ -f "package.json" ] && grep -q "\"build\"" package.json; then
-  echo "Building the application..."
-  npm run build
+# Check if deployment directory exists, if not, create it
+if [ ! -d "$DEPLOY_DIR" ]; then
+    echo "Creating deployment directory: $DEPLOY_DIR"
+    mkdir -p "$DEPLOY_DIR/$JS_DIR"
 else
-  echo "No build script found. Skipping build step."
+    echo "Deployment directory already exists: $DEPLOY_DIR"
 fi
 
-# Start the application
-echo "Starting the application..."
-npm start
+# Deploy demo.html
+echo "Deploying $HTML_FILE"
+cp demo.html "$DEPLOY_DIR/"
 
-# Log the successful deployment
-echo "Deployment completed successfully on branch: $BRANCH"
+# Deploy JavaScript files
+echo "Deploying JavaScript files"
+cp js/demo.js "$DEPLOY_DIR/$JS_DIR/"
+cp js/scilib.json "$DEPLOY_DIR/$JS_DIR/"
+cp js/scilib-integration.js "$DEPLOY_DIR/$JS_DIR/"
+
+# Adjust permissions for the deployed files
+echo "Setting permissions for deployed files"
+chmod -R 755 "$DEPLOY_DIR"
+
+# Test if files were deployed successfully
+if [ -f "$DEPLOY_DIR/$HTML_FILE" ] && [ -f "$DEPLOY_DIR/$JS_DIR/demo.js" ] && [ -f "$DEPLOY_DIR/$JS_DIR/scilib.json" ] && [ -f "$DEPLOY_DIR/$JS_DIR/scilib-integration.js" ]; then
+    echo "Files deployed successfully to $DEPLOY_DIR"
+else
+    echo "Error: Some files failed to deploy."
+    exit 1
+fi
+
+# Restart web server to apply changes (assuming Apache here, modify for your web server)
+echo "Restarting web server"
+service apache2 restart
+
+# Output access information
+echo "Deployment complete. Access the demo at the following URL:"
+echo "https://aimtyaem.github.io/aton4st/demo.html"
