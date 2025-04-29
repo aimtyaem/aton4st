@@ -1,263 +1,88 @@
 {
   "categories": [
     {
-      "label": "Genomics",
+      "label": "Sustainability Tracking",
+      "description": "Monitor environmental impact metrics aligned with UN Sustainable Development Goals (SDGs).",
       "datasets": [
         {
-          "id": "1000genomes_dragen",
-          "name": "1000 Genomes Phase 3 Reanalysis with DRAGEN 3.5 - Data Lakehouse Ready",
-          "description": "The 1000 Genomes Project is an international collaboration which has established the most detailed catalogue of human genetic variation, including SNPs, structural variants, and their haplotype context. Phase 3 includes 3202 individuals sequenced and processed with Illumina DRAGEN v3.5.7b. Data available in Parquet/ORC formats for population genetics research.",
-          "documentation": "https://github.com/aws-samples/data-lake-as-code/tree/roda#readme",
-          "contact": "https://github.com/aws-samples/data-lake-as-code/issues",
-          "managedBy": "Amazon Web Services",
-          "tags": ["biology", "bioinformatics", "genetic", "genomic", "Homo sapiens", "life sciences", "parquet", "population genetics", "vcf"],
-          "license": "Data from the 1000 Genomes Project is now available without embargo. Use of the data should be cited as per http://www.internationalgenome.org/faq/how-do-i-cite-1000-genomes-project.",
+          "id": "sdg_environmental_metrics",
+          "name": "SDG Environmental Metrics Dataset",
+          "description": "A collection of global datasets for tracking environmental indicators aligned with SDG targets, supporting sustainability assessment and reporting.",
+          "documentation": "https://www.earthdata.nasa.gov/",
+          "contact": "support@earthdata.nasa.gov",
+          "managedBy": "NASA Earth Science Division",
+          "tags": [
+            "SDG",
+            "sustainability",
+            "environmental monitoring",
+            "climate",
+            "open data"
+          ],
+          "license": "Open Data Commons Open Database License (ODbL)",
           "resources": [
             {
-              "description": "Parquet representations of 1000 Genomes VCF outputs from DRAGEN, ready for enrollment into Data Lake as Code.",
-              "type": "S3 Bucket",
-              "arn": "arn:aws:s3:::aws-roda-hcls-datalake/thousandgenomes_dragen",
-              "region": "us-east-1"
-            }
-          ],
-          "tutorials": [
-            {
-              "title": "Sample Queries on the 1000 Genomes, gnomAD and ClinVar data Lake",
-              "url": "https://github.com/aws-samples/aws-genomics-datalake/blob/main/1000Genomes.ipynb",
-              "author": "Sujaya Srinivasan"
-            }
-          ],
-          "deprecatedNotice": "Amazon is no longer hosting this Data Lakehouse Ready dataset"
-        },
-        {
-          "id": "1000genomes",
-          "name": "1000 Genomes",
-          "description": "The 1000 Genomes Project catalogues human genetic variation. Final phase sequenced over 2500 individuals from 26 populations, producing over 80 million variants.",
-          "documentation": "https://github.com/awslabs/open-data-docs/tree/main/docs/1000genomes",
-          "contact": "http://www.internationalgenome.org/contact",
-          "managedBy": "National Institutes of Health",
-          "tags": ["aws-pds", "genetic", "genomic", "life sciences", "whole genome sequencing", "fastq"],
-          "license": "Data from the 1000 Genomes Project is now available without embargo. Use of the data should be cited as per http://www.internationalgenome.org/faq/how-do-i-cite-1000-genomes-project.",
-          "resources": [
-            {
-              "description": "http://www.internationalgenome.org/formats",
-              "type": "S3 Bucket",
-              "arn": "arn:aws:s3:::1000genomes",
-              "region": "us-east-1"
-            }
-          ],
-          "publications": [
-            {
-              "title": "Exploratory data analysis of genomic datasets using ADAM and Mango with Apache Spark on Amazon EMR",
-              "url": "https://aws.amazon.com/blogs/big-data/exploratory-data-analysis-of-genomic-datasets-using-adam-and-mango-with-apache-spark-on-amazon-emr/",
-              "author": "Alyssa Marrow"
-            }
-          ]
-        },
-        {
-          "id": "4dnucleome",
-          "name": "4D Nucleome (4DN)",
-          "description": "The NIH 4D Nucleome program studies the 3D organization of the nucleus in space and time. Data includes genomics and imaging assays on chromatin interactions and nuclear landscape.",
-          "documentation": "https://data.4dnucleome.org",
-          "contact": "support@4dnucleome.org",
-          "managedBy": "4DN Data Coordination and Integration Center (4DN-DCIC)",
-          "tags": ["biology", "bioinformatics", "genetic", "genomic", "imaging", "life sciences", "aws-pds"],
-          "license": "External data users may freely download, analyze, and publish results based on any 4DN data provided here without restrictions.",
-          "resources": [
-            {
-              "description": "Released and archived 4DNucleome data",
-              "type": "S3 Bucket",
-              "arn": "arn:aws:s3:::4dn-open-data-public",
-              "region": "us-east-1"
-            }
-          ],
-          "tutorials": [
-            {
-              "title": "Finding and Downloading 4DN Data files",
-              "url": "https://data.4dnucleome.org/help/user-guide/downloading-files",
-              "author": "4DN-DCIC"
-            },
-            {
-              "title": "Using jupyterhub on the 4DN data portal",
-              "url": "https://data.4dnucleome.org/tools/jupyterhub",
-              "author": "4DN-DCIC"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "label": "3D Vision",
-      "datasets": [
-        {
-          "id": "3dcompat",
-          "name": "3DCoMPaT: Composition of Materials on Parts of 3D Things",
-          "description": "3DCoMPaT is a richly annotated large-scale dataset of rendered compositions of materials on parts of thousands of unique 3D models, focusing on stylizing 3D shapes at part-level with compatible materials.",
-          "documentation": "https://3dcompat-dataset.org/",
-          "contact": "mohamed.elhoseiny@kaust.edu.sa, yuchen.li@kaust.edu.sa",
-          "managedBy": "Vision-CAIR, CEMSE, KAUST",
-          "tags": ["aws-pds", "computer vision", "machine learning"],
-          "license": "https://3dcompat-dataset.org/LICENSE",
-          "resources": [
-            {
-              "description": "3DCoMPaT Dataset",
-              "type": "S3 Bucket",
-              "arn": "arn:aws:s3:::3dcompat-dataset",
-              "region": "us-west-1"
-            }
-          ],
-          "publications": [
-            {
-              "title": "3DCoMPaT: Composition of Materials on Parts of 3D Things",
-              "url": "https://3dcompat-dataset.org/pdf/paper.pdf",
-              "author": "Yuchen Li, Ujjwal Upadhyay, Habib Slim, Ahmed Abdelreheem, Arpit Prajapati, Suhail Pothigara, Peter Wonka & Mohamed Elhoseiny"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "label": "Agriculture",
-      "datasets": [
-        {
-          "id": "3000ricegenomes",
-          "name": "3000 Rice Genomes Project",
-          "description": "The 3000 Rice Genome Project is an international effort to sequence the genomes of 3,024 rice varieties from 89 countries.",
-          "documentation": "https://github.com/awslabs/open-data-docs/tree/main/docs/3kricegenome",
-          "contact": "http://iric.irri.org/contact-us",
-          "managedBy": "International Rice Research Institute",
-          "tags": ["agriculture", "food security", "aws-pds", "genetic", "genomic", "life sciences"],
-          "license": "This data is available for anyone to use under the terms of the Toronto Statement.",
-          "resources": [
-            {
-              "description": "http://s3.amazonaws.com/3kricegenome/README-snp_pipeline.txt",
-              "type": "S3 Bucket",
-              "arn": "arn:aws:s3:::3kricegenome",
-              "region": "us-east-1"
-            }
-          ],
-          "tools": [
-            {
-              "title": "RiceGalaxy",
-              "url": "https://github.com/InternationalRiceResearchInstitute/RiceGalaxy",
-              "author": "International Rice Research Institute"
-            }
-          ],
-          "publications": [
-            {
-              "title": "Tracking the origin of two genetic components associated with transposable element bursts in domesticated rice",
-              "url": "https://www.nature.com/articles/s41467-019-08451-3",
-              "author": "Chen J et al (2019)"
-            },
-            {
-              "title": "Structural variants in 3000 rice genomes",
-              "url": "https://genome.cshlp.org/content/29/5/870.short",
-              "author": "Fuentes RR et al (2019)"
-            },
-            {
-              "title": "Rice Galaxy: an open resource for plant science",
-              "url": "https://academic.oup.com/gigascience/article/8/5/giz028/5492234",
-              "author": "Juanillas V et al (2019)"
-            },
-            {
-              "title": "Identification and Allele Combination Analysis of Rice Grain Shape-Related Genes by Genome-Wide Association Study",
-              "url": "https://www.mdpi.com/1422-0067/23/3/1065",
-              "author": "Meng B et al (2022)"
-            }
-          ]
-        },
-        {
-          "id": "africa_crop_boundaries",
-          "name": "A region-wide, multi-year set of crop field boundary labels for Africa",
-          "description": "Crop field boundaries digitized in Planet imagery collected across Africa between 2017 and 2023, developed by Farmerline, Spatial Collective, and the Agricultural Impacts Research Group at Clark University.",
-          "documentation": "https://github.com/agroimpacts/lacunalabels/",
-          "contact": "airg@clarku.edu",
-          "managedBy": "The Agricultural Impacts Research Group",
-          "tags": ["agriculture", "machine learning", "land cover", "satellite imagery", "cog", "labeled"],
-          "license": "Planet NICFI participant license agreement",
-          "resources": [
-            {
-              "description": "Field boundary labels and corresponding Planet images",
-              "type": "S3 Bucket",
-              "arn": "arn:aws:s3:::africa-field-boundary-labels",
+              "description": "Geospatial data and metrics for SDG progress, including climate, water, and land indicators.",
+              "type": "Cloud Storage",
+              "arn": "arn:aws:s3:::earthdata-sdg-metrics",
               "region": "us-west-2"
             }
           ],
           "tutorials": [
             {
-              "title": "Instructions on data access and label-making demonstration notebook",
-              "url": "https://github.com/agroimpacts/lacunalabels",
-              "author": "Lyndon Estes"
+              "title": "How to Access and Analyze SDG Environmental Metrics",
+              "url": "https://www.earthdata.nasa.gov/learn",
+              "author": "NASA Earthdata Team"
             }
           ],
           "publications": [
             {
-              "title": "A region-wide, multi-year set of crop field boundary labels for Africa",
-              "url": "https://zenodo.org/records/11060871",
-              "author": "Wussah et al. (2023)"
-            },
-            {
-              "title": "Technical report on label develop and processing",
-              "url": "https://github.com/agroimpacts/lacunalabels/blob/main/docs/report/technical-report.pdf",
-              "author": "Wussah et al. (2023)"
-            },
-            {
-              "title": "High resolution, annual maps of field boundaries for smallholder-dominated croplands at national scales",
-              "url": "https://www.frontiersin.org/article/10.3389/frai.2021.744863",
-              "author": "Estes et al. (2022)"
-            },
-            {
-              "title": "A platform for crowdsourcing the creation of representative, accurate landcover maps",
-              "url": "http://www.sciencedirect.com/science/article/pii/S136481521630010X",
-              "author": "Estes et al. (2016)"
-            }
-          ]
-        },
-        {
-          "id": "afsis_soil_chemistry",
-          "name": "Africa Soil Information Service (AfSIS) Soil Chemistry",
-          "description": "Soil infrared spectral data and paired soil property reference measurements for georeferenced soil samples from 19 African countries, collected through the AfSIS project (2009-2018).",
-          "documentation": "https://github.com/qedsoftware/afsis-soil-chem-tutorial",
-          "contact": "afsis@qed.ai",
-          "managedBy": "QED",
-          "tags": ["agriculture", "aws-pds", "environmental", "food security", "machine learning", "life sciences"],
-          "license": "ODC Open Database License (ODbL) version 1.0, with attribution to AfSIS",
-          "resources": [
-            {
-              "description": "Paired wet and dry chemistry measurements for georeferenced soils collected by AfSIS, stored as CSV and OPUS files.",
-              "type": "S3 Bucket",
-              "arn": "arn:aws:s3:::afsis",
-              "region": "us-east-1"
+              "title": "Tracking SDG Progress with Earth Observation Data",
+              "url": "https://www.earthdata.nasa.gov/sdg-case-study",
+              "author": "NASA"
             }
           ]
         }
       ]
     },
     {
-      "label": "Autonomous Vehicles",
+      "label": "Earth observation data queries",
+      "description": "Generate queries and explore global Earth observation datasets for research and applications.",
       "datasets": [
         {
-          "id": "a2d2",
-          "name": "A2D2: Audi Autonomous Driving Dataset",
-          "description": "An open multi-sensor dataset for autonomous driving research. Includes semantically segmented images, semantic point clouds, 3D bounding boxes, and unlabelled 360° camera images, lidar, and bus data.",
-          "documentation": "http://a2d2.audi",
-          "contact": "aevdrivingdataset@audi.de",
-          "managedBy": "Audi AG",
-          "tags": ["autonomous vehicles", "deep learning", "computer vision", "lidar", "mapping", "machine learning", "robotics", "aws-pds"],
-          "license": "https://creativecommons.org/licenses/by-nd/4.0/",
+          "id": "earth_observation_query_examples",
+          "name": "Earth Observation Query Examples",
+          "description": "Example queries and sample datasets for retrieving and analyzing Earth observation data.",
+          "documentation": "https://search.earthdata.nasa.gov/",
+          "contact": "support@earthdata.nasa.gov",
+          "managedBy": "NASA Earth Science Data Systems",
+          "tags": [
+            "earth observation",
+            "remote sensing",
+            "data access",
+            "geospatial",
+            "open data"
+          ],
+          "license": "Open Data Commons Attribution License",
           "resources": [
             {
-              "description": "http://a2d2.audi",
-              "type": "S3 Bucket",
-              "arn": "arn:aws:s3:::aev-autonomous-driving-dataset",
-              "region": "eu-central-1"
+              "description": "Sample queries and corresponding datasets for Earth observation research.",
+              "type": "API",
+              "arn": "arn:aws:s3:::earthdata-query-examples",
+              "region": "us-west-2"
             }
           ],
           "tutorials": [
             {
-              "title": "Autonomous Driving Data Service (ADDS)",
-              "url": "https://github.com/aws-samples/amazon-eks-autonomous-driving-data-service",
-              "author": "Ajay Vohra, Amazon"
+              "title": "Generating and Running Earth Observation Data Queries",
+              "url": "https://search.earthdata.nasa.gov/tutorials",
+              "author": "NASA Earthdata Team"
+            }
+          ],
+          "publications": [
+            {
+              "title": "Best Practices for Querying Earth Observation Data",
+              "url": "https://www.earthdata.nasa.gov/query-best-practices",
+              "author": "NASA"
             }
           ]
         }
