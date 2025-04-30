@@ -3,7 +3,6 @@ document.querySelector('.menu-toggle').addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Chart initialization function
     const createChart = (ctx, labels, data, label) => {
         return new Chart(ctx, {
             type: 'line',
@@ -20,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Initialize main dashboard chart
     const mainChart = createChart(
         document.getElementById('climateChart').getContext('2d'),
         ['2010', '2015', '2020', '2025'],
@@ -28,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'Global Temperature Anomaly (°C)'
     );
 
-    // Chart configuration
     const getChartOptions = () => ({
         responsive: true,
         maintainAspectRatio: false,
@@ -51,15 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Chatbot functionality
     async function sendMessage() {
         const input = document.getElementById('userInput');
         const message = input.value.trim();
         if (!message) return;
 
         const chatHistory = document.getElementById('chatHistory');
-        
-        // Add user message
         chatHistory.innerHTML += `
             <div class="message user-message">
                 ${sanitizeHTML(message)}
@@ -70,30 +64,27 @@ document.addEventListener('DOMContentLoaded', () => {
         chatHistory.scrollTop = chatHistory.scrollHeight;
 
         try {
-            // Add loading indicator
             const loadingId = `loading-${Date.now()}`;
             chatHistory.innerHTML += `
-                <div class="message bot-message" id="${loadingId}">
+                <div class="message bot-message">
                     <div class="loading-dots">
                         <span>.</span><span>.</span><span>.</span>
                     </div>
                 </div>
             `;
+
             chatHistory.scrollTop = chatHistory.scrollHeight;
 
-            // Get and process response
             const response = await getBotResponse(message);
             document.getElementById(loadingId).remove();
 
             if (response.type === 'chart') {
                 chatHistory.innerHTML += `
                     <div class="message bot-message chart-container">
-                        <canvas data-labels="${response.labels}" 
-                                data-data="${response.data}" 
-                                data-title="${response.title}"></canvas>
+                        <canvas data-labels="${response.labels}" data-data="${response.data}" data-title="${response.title}"></canvas>
                     </div>
                 `;
-                
+
                 // Initialize new charts
                 document.querySelectorAll('.chart-container canvas').forEach(canvas => {
                     new Chart(canvas.getContext('2d'), {
@@ -110,10 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         options: getChartOptions()
                     });
                 });
-            } else {
+            } else if (response.type === 'text') {
                 chatHistory.innerHTML += `
                     <div class="message bot-message">
                         ${sanitizeHTML(response.text)}
+                    </div>
+                `;
+            } else {
+                chatHistory.innerHTML += `
+                    <div class="message bot-message error">
+                        Error: ${sanitizeHTML(response.reason)}
                     </div>
                 `;
             }
@@ -129,9 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatHistory.scrollTop = chatHistory.scrollHeight;
     }
 
-    // API communication handler
     async function getBotResponse(query) {
-        // Simple command detection
         if (query.toLowerCase().includes('temperature')) {
             return {
                 type: 'chart',
@@ -139,45 +134,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: '0.72,0.87,1.02,1.15',
                 title: 'Global Temperature Trend'
             };
-        }
+        } else {
+            try {
+                const response = await fetch('https://api-inference.huggingface.co/models/ibm-granite/granite-3.3-8b-instruct', {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer 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`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        inputs: query,
+                        parameters: { max_new_tokens: 50 }
+                    })
+                });
 
-        // Fallback to API
-        try {
-            const response = await fetch('https://api-inference.huggingface.co/models/ibm-granite/granite-3.3-8b-instruct', {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer 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`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    inputs: query,
-                    parameters: { max_new_tokens: 50 }
-                })
-            });
+                if (!response.ok) throw new Error(`API error: ${response.status}`);
 
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-            
-            const data = await response.json();
-            return {
-                type: 'text',
-                text: data.generated_text || "I need more information to answer that."
-            };
-        } catch (error) {
-            return {
-                type: 'text',
-                text: "Sorry, I'm having trouble connecting. Please try again later."
-            };
+                const data = await response.json();
+                return {
+                    type: 'text',
+                    text: data.generated_text || "I need more information to answer that."
+                };
+            } catch (error) {
+                return {
+                    type: 'text',
+                    text: "Sorry, I'm having trouble connecting. Please try again later."
+                };
+            }
         }
     }
 
-    // Security helper
     const sanitizeHTML = (str) => {
         const temp = document.createElement('div');
         temp.textContent = str;
         return temp.innerHTML;
     };
 
-    // Event listeners
     document.getElementById('userInput').addEventListener('keypress', e => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
