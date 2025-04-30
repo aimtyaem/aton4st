@@ -52,13 +52,14 @@
           "id": "earth_observation_query_examples",
           "name": "Earth Observation Query Examples",
           "description": "Example queries and sample datasets for retrieving and analyzing Earth observation data.",
-          "documentation": "https://search.earthdata.nasa.gov/",
+          "documentation": "https://earthaccess.readthedocs.io/en/latest",
           "contact": "support@earthdata.nasa.gov",
           "managedBy": "NASA Earth Science Data Systems",
           "tags": [
             "earth observation",
+            "earth access",
             "remote sensing",
-            "data access",
+            "cloud access",
             "geospatial",
             "open data"
           ],
@@ -74,14 +75,14 @@
           "tutorials": [
             {
               "title": "Generating and Running Earth Observation Data Queries",
-              "url": "https://search.earthdata.nasa.gov/tutorials",
+              "url": "https://earthaccess.readthedocs.io/en/latest/tutorials",
               "author": "NASA Earthdata Team"
             }
           ],
           "publications": [
             {
               "title": "Best Practices for Querying Earth Observation Data",
-              "url": "https://www.earthdata.nasa.gov/query-best-practices",
+              "url": "https://earthaccess.readthedocs.io/en/latest/user_guide/search",
               "author": "NASA"
             }
           ]
