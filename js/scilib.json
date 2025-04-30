@@ -75,7 +75,7 @@
           "tutorials": [
             {
               "title": "Generating and Running Earth Observation Data Queries",
-              "url": "https://earthaccess.readthedocs.io/en/latest/tutorials",
+              "url": "https://earthaccess.readthedocs.io/en/latest/tutorials/file-access",
               "author": "NASA Earthdata Team"
             }
           ],
