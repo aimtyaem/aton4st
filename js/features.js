@@ -136,10 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         } else {
             try {
-                const response = await fetch('https://api-inference.huggingface.co/models/ibm-granite/granite-3.3-8b-instruct', {
+                const response = await fetch('https://eu-de.ml.cloud.ibm.com/ml/v4/deployments/de940c69-fa13-448b-84bc-95cdb5f5af86/ai_service?version=2021-05-01', {
                     method: 'POST',
                     headers: {
-                        Authorization: `Bearer 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`,
+                        Authorization: `Bearer KBgTbj8wRC1LZ1LOZiGiesd_3qjYseSaz0JBlreIYC5c`,
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
