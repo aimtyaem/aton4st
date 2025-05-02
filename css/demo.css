@@ -8,10 +8,26 @@
 body {
     font-family: 'Roboto', sans-serif;
     background: #0a0f24;
-    color: #fff;
+    color: #e2e8f0; /* Base text color for all content */
     line-height: 1.6;
     margin: 0;
-    padding-top: 82px; /* Compensate for fixed header */
+    padding-top: 82px;
+}
+
+/* Global Text Color Fixes */
+a {
+    color: #38bdf8;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #8577ef;
+    text-decoration: underline;
+}
+
+p, li, span, div {
+    color: inherit; /* Force text color inheritance */
 }
 
 /* Header Styles */
@@ -45,7 +61,7 @@ nav {
 }
 
 nav a {
-    color: white;
+    color: #e2e8f0 !important; /* Force light color in nav */
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 0.3rem;
@@ -53,8 +69,8 @@ nav a {
 }
 
 nav a:hover {
-    color: #8577ef;
-    background-color: #38bdf8;
+    color: #8577ef !important;
+    background-color: rgba(56, 189, 248, 0.2);
 }
 
 /* Data Visualization Section */
@@ -62,6 +78,7 @@ nav a:hover {
     padding: 4rem 2rem;
     background: #0e1225;
     margin-top: 0;
+    color: #e2e8f0; /* Explicit text color */
 }
 
 .dashboard-grid {
@@ -79,6 +96,7 @@ nav a:hover {
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    color: #e2e8f0; /* Explicit text color */
 }
 
 .info-card:hover {
@@ -105,7 +123,7 @@ nav a:hover {
 .card-content {
     font-size: 1rem;
     line-height: 1.8;
-    color: #e2e8f0;
+    color: inherit; /* Inherits from info-card */
 }
 
 /* Graph Containers */
@@ -115,6 +133,7 @@ nav a:hover {
     padding: 1.5rem;
     margin: 2rem 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #e2e8f0;
 }
 
 .graph-title {
@@ -141,11 +160,13 @@ nav a:hover {
 .message.bot ul {
     padding-left: 1.5rem;
     margin: 1rem 0;
+    color: inherit;
 }
 
 .message.bot li {
     margin-bottom: 0.5rem;
     padding-left: 0.5rem;
+    color: inherit;
 }
 
 .message.bot code {
@@ -175,7 +196,7 @@ nav a:hover {
     font-weight: 500;
 }
 
-/* SciLib Specific Styles */
+/* SciLib Specific Styles - Now with proper contrast */
 .scilib-elective-choices {
     font-size: 0.98em;
     color: #a78bfa;
@@ -247,11 +268,19 @@ nav a:hover {
         gap: 1rem;
     }
     
+    nav a {
+        padding: 0.5rem;
+    }
+    
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
     
     .data-container {
         padding: 2rem 1rem;
+    }
+    
+    .info-card {
+        padding: 1.5rem;
     }
 }
