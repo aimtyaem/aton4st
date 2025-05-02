@@ -1,6 +1,4 @@
-/* ==================== */
-/* GLOBAL TEXT FIXES */
-/* ==================== */
+/* Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -10,93 +8,183 @@
 body {
     font-family: 'Roboto', sans-serif;
     background: #0a0f24;
-    color: #e2e8f0; /* Base light text color */
+    color: #fff;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Header Styles */
+header {
+    background: rgba(26, 31, 53, 0.95);
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 1rem;
+    display: block;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-grow: 1;
+    gap: 2rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: #8577ef;
+    background-color: #38bdf8;
+}
+
+/* Data Visualization Section */
+.data-container {
+    padding: 4rem 2rem;
+    background: #0e1225;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Info Cards */
+.info-card {
+    background: #1a1f35;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-bottom: 1px solid #2d3251;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: #6c5ce7;
+    margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+    color: #ccd6f6;
+    font-size: 0.9rem;
+}
+
+.card-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #e2e8f0;
+}
+
+/* Graph Containers */
+.graph-container {
+    background: #1a1f35;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.graph-title {
+    font-size: 1.3rem;
+    color: #48dbfb;
+    margin-bottom: 1.5rem;
+}
+
+/* Chatbot Text Formatting */
+.message.bot {
+    font-size: 1rem;
     line-height: 1.6;
 }
 
-/* Force text visibility in all containers */
-div, p, span, li, td, th, a {
-    color: inherit !important;
+
+.message.bot em {
+    color: #8577ef;
+    font-style: italic;
 }
 
-/* ==================== */
-/* SCILIB SPECIFIC FIXES */
-/* ==================== */
-.scilib-elective-choices {
-    font-size: 0.98em;
-    color: #a78bfa !important; /* Purple text */
-    background: rgba(26, 31, 53, 0.7) !important;
-    padding: 0.75rem;
-    border-radius: 8px;
-    margin: 0.5rem 0;
-    border-left: 3px solid #6c5ce7;
+.message.bot ul {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
 }
 
-.scilib-category {
-    margin: 0.6em 0 0.2em;
-    color: #48dbfb !important; /* Cyan text */
+.message.bot li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.message.bot code {
+    background: rgba(255, 255, 255, 0.05);
+    color: #48dbfb;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    font-family: 'Courier New', monospace;
+}
+
+.message.bot pre {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+}
+
+.message.bot pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.9rem;
+}
+.scilib-elective-choices { font-size: 0.98em; color: #1b5e20;}
+.scilib-category { margin: 0.6em 0 0.2em; color: #1b5e20; }
+.scilib-dataset { margin: 0.2em 0; padding: 2px 0; }
+.scilib-dataset:hover { background: #e3f2fd; }
+.scilib-advanced { font-size: 0.95em; color: #333; }
+.scilib-advanced a { color: #1976d2; text-decoration: underline; }
+.message.bot strong {
+    color: #48dbfb;
     font-weight: 500;
-    font-size: 1.1em;
-    padding-bottom: 0.3em;
-    border-bottom: 1px solid #2d3251;
-    background: transparent !important;
 }
-
-.scilib-dataset {
-    margin: 0.4em 0;
-    padding: 0.5em;
-    background: rgba(108, 92, 231, 0.1) !important;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    color: #e2e8f0 !important; /* Light text */
-}
-
-.scilib-dataset:hover {
-    background: rgba(108, 92, 231, 0.2) !important;
-    transform: translateX(3px);
-}
-
-.scilib-advanced {
-    font-size: 0.95em;
-    color: #ccd6f6 !important; /* Light blue-gray */
-    margin-top: 1em;
-    padding-top: 0.5em;
-    border-top: 1px dashed #2d3251;
-    background: transparent !important;
-}
-
-.scilib-advanced a {
-    color: #38bdf8 !important; /* Bright blue links */
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.scilib-advanced a:hover {
-    color: #8577ef !important; /* Purple on hover */
-    text-decoration: underline;
-}
-
-/* ==================== */
-/* CONTEXTUAL OVERRIDES */
-/* ==================== */
-/* Ensure visibility in message bubbles */
-.message.bot .scilib-elective-choices,
-.message.bot .scilib-category,
-.message.bot .scilib-dataset,
-.message.bot .scilib-advanced {
-    background: rgba(26, 31, 53, 0.9) !important;
-}
-
-/* Fix for cards and containers */
-.info-card .scilib-content,
-.graph-container .scilib-content {
-    background: transparent !important;
-}
-
-/* ==================== */
-/* DEBUGGING SAFEGUARDS */
-/* ==================== */
-/* Temporary visual debug (remove after testing) */
-.scilib-debug {
-    outline: 1px solid red !important;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    nav {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
 }
