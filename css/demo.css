@@ -11,10 +11,10 @@ body {
     color: #fff;
     line-height: 1.6;
     margin: 0;
-    padding-top: 82px; /* Added to compensate for fixed header */
+    padding-top: 82px; /* Compensate for fixed header */
 }
 
-/* Header Fixes */
+/* Header Styles */
 header {
     background: rgba(26, 31, 53, 0.95);
     padding: 1rem;
@@ -27,45 +27,211 @@ header {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    height: 82px; /* Added fixed height */
+    height: 82px;
 }
 
-/* Fixed scilib class selectors */
-.scilib-elective-choices { 
-    font-size: 0.98em; 
-    color: #1b5e20;
+.logo {
+    height: 50px;
+    margin-right: 1rem;
+    display: block;
 }
-.scilib-category { 
-    margin: 0.6em 0 0.2em; 
-    color: #1b5e20; 
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-grow: 1;
+    gap: 2rem;
 }
-.scilib-dataset { 
-    margin: 0.2em 0; 
-    padding: 2px 0; 
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    transition: all 0.3s ease;
 }
-.scilib-dataset:hover { 
-    background: #e3f2fd; 
-}
-.scilib-advanced { 
-    font-size: 0.95em; 
-    color: #333; 
-}
-.scilib-advanced a { 
-    color: #1976d2; 
-    text-decoration: underline; 
+
+nav a:hover {
+    color: #8577ef;
+    background-color: #38bdf8;
 }
 
 /* Data Visualization Section */
 .data-container {
     padding: 4rem 2rem;
     background: #0e1225;
-    margin-top: 0; /* Removed duplicate margin */
+    margin-top: 0;
 }
 
-/* Responsive Design Fixes */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Info Cards */
+.info-card {
+    background: #1a1f35;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-bottom: 1px solid #2d3251;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: #6c5ce7;
+    margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+    color: #ccd6f6;
+    font-size: 0.9rem;
+}
+
+.card-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #e2e8f0;
+}
+
+/* Graph Containers */
+.graph-container {
+    background: #1a1f35;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.graph-title {
+    font-size: 1.3rem;
+    color: #48dbfb;
+    margin-bottom: 1.5rem;
+}
+
+/* Chatbot Text Formatting */
+.message.bot {
+    font-size: 1rem;
+    line-height: 1.6;
+    background: #0e1225;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.message.bot em {
+    color: #8577ef;
+    font-style: italic;
+}
+
+.message.bot ul {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.message.bot li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.message.bot code {
+    background: rgba(255, 255, 255, 0.05);
+    color: #48dbfb;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    font-family: 'Courier New', monospace;
+}
+
+.message.bot pre {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+}
+
+.message.bot pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.message.bot strong {
+    color: #48dbfb;
+    font-weight: 500;
+}
+
+/* SciLib Specific Styles */
+.scilib-elective-choices {
+    font-size: 0.98em;
+    color: #a78bfa;
+    background: rgba(26, 31, 53, 0.7);
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin: 0.5rem 0;
+    border-left: 3px solid #6c5ce7;
+}
+
+.scilib-category {
+    margin: 0.6em 0 0.2em;
+    color: #48dbfb;
+    font-weight: 500;
+    font-size: 1.1em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #2d3251;
+}
+
+.scilib-dataset {
+    margin: 0.4em 0;
+    padding: 0.5em;
+    background: rgba(108, 92, 231, 0.1);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    color: #e2e8f0;
+}
+
+.scilib-dataset:hover {
+    background: rgba(108, 92, 231, 0.2);
+    transform: translateX(3px);
+}
+
+.scilib-advanced {
+    font-size: 0.95em;
+    color: #ccd6f6;
+    margin-top: 1em;
+    padding-top: 0.5em;
+    border-top: 1px dashed #2d3251;
+}
+
+.scilib-advanced a {
+    color: #38bdf8;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.scilib-advanced a:hover {
+    color: #8577ef;
+    text-decoration: underline;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     body {
-        padding-top: 120px; /* Increased padding for mobile header height */
+        padding-top: 120px;
     }
     
     header {
@@ -78,10 +244,14 @@ header {
         justify-content: center;
         margin-top: 1rem;
         width: 100%;
+        gap: 1rem;
     }
     
-    /* Removed undefined .hero h1 selector */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .data-container {
+        padding: 2rem 1rem;
+    }
 }
-
-/* Rest of your original styles remain unchanged below */
-/* ... (other styles remain exactly as you wrote them) ... */
