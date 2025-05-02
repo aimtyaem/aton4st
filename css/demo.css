@@ -165,7 +165,7 @@ nav a:hover {
 }
 .scilib-elective-choices { font-size: 0.98em; color: #1b5e20;}
 .scilib-category { margin: 0.6em 0 0.2em; color: #1b5e20; }
-.scilib-dataset { margin: 0.2em 0; padding: 2px 0; }
+.scilib-dataset { margin: 0.2em 0; padding: 2px 0; color: #1b5e20;}
 .scilib-dataset:hover { background: #e3f2fd; }
 .scilib-advanced { font-size: 0.95em; color: #333; }
 .scilib-advanced a { color: #1976d2; text-decoration: underline; }
